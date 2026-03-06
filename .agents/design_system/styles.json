@@ -1,0 +1,742 @@
+{
+  "designSystem": {
+    "name": "pedStudio Website Design System",
+    "version": "1.0.0",
+    "description": "Modern & professional design system with bold red-to-orange identity",
+    "typography": {
+      "fonts": {
+        "display": {
+          "family": "Bonky",
+          "source": "/public/fonts/Bonky.otf",
+          "usage": "Headlines, hero text, brand moments",
+          "weights": [
+            "400"
+          ],
+          "style": "Expressive, bold identity font — used sparingly for maximum impact"
+        },
+        "mono": {
+          "family": "JetBrains Mono",
+          "source": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap",
+          "usage": "Body text, UI labels, navigation, data, paragraphs",
+          "weights": [
+            "300",
+            "400",
+            "500",
+            "600",
+            "700"
+          ],
+          "style": "Clean, technical, modern — conveys precision and professionalism"
+        }
+      },
+      "scale": {
+        "xs": {
+          "size": "11px",
+          "lineHeight": "1.5",
+          "letterSpacing": "0.08em"
+        },
+        "sm": {
+          "size": "13px",
+          "lineHeight": "1.5",
+          "letterSpacing": "0.04em"
+        },
+        "base": {
+          "size": "15px",
+          "lineHeight": "1.6",
+          "letterSpacing": "0.01em"
+        },
+        "md": {
+          "size": "18px",
+          "lineHeight": "1.5",
+          "letterSpacing": "0em"
+        },
+        "lg": {
+          "size": "24px",
+          "lineHeight": "1.3",
+          "letterSpacing": "-0.01em"
+        },
+        "xl": {
+          "size": "32px",
+          "lineHeight": "1.2",
+          "letterSpacing": "-0.02em"
+        },
+        "2xl": {
+          "size": "48px",
+          "lineHeight": "1.1",
+          "letterSpacing": "-0.03em"
+        },
+        "3xl": {
+          "size": "72px",
+          "lineHeight": "1.0",
+          "letterSpacing": "-0.04em"
+        },
+        "hero": {
+          "size": "clamp(64px, 10vw, 120px)",
+          "lineHeight": "0.95",
+          "letterSpacing": "-0.05em",
+          "font": "Bonky"
+        }
+      },
+      "roles": {
+        "hero": {
+          "font": "Bonky",
+          "size": "hero",
+          "weight": "400"
+        },
+        "sectionTitle": {
+          "font": "Bonky",
+          "size": "2xl",
+          "weight": "400"
+        },
+        "cardTitle": {
+          "font": "JetBrains Mono",
+          "size": "lg",
+          "weight": "600"
+        },
+        "body": {
+          "font": "JetBrains Mono",
+          "size": "base",
+          "weight": "400"
+        },
+        "label": {
+          "font": "JetBrains Mono",
+          "size": "sm",
+          "weight": "500",
+          "transform": "uppercase",
+          "letterSpacing": "0.12em"
+        },
+        "caption": {
+          "font": "JetBrains Mono",
+          "size": "xs",
+          "weight": "300"
+        },
+        "nav": {
+          "font": "JetBrains Mono",
+          "size": "sm",
+          "weight": "500"
+        },
+        "cta": {
+          "font": "JetBrains Mono",
+          "size": "sm",
+          "weight": "700",
+          "transform": "uppercase",
+          "letterSpacing": "0.1em"
+        }
+      }
+    },
+    "colors": {
+      "primitives": {
+        "red": {
+          "50": "#fff1f1",
+          "100": "#ffe0e0",
+          "200": "#ffc5c5",
+          "300": "#ff9a9a",
+          "400": "#ff6161",
+          "500": "#ff2e2e",
+          "600": "#ed1515",
+          "700": "#c80d0d",
+          "800": "#a50f0f",
+          "900": "#881414",
+          "950": "#4b0404"
+        },
+        "orange": {
+          "50": "#fff7ed",
+          "100": "#ffedd5",
+          "200": "#fed7aa",
+          "300": "#fdba74",
+          "400": "#fb923c",
+          "500": "#f97316",
+          "600": "#ea580c",
+          "700": "#c2410c",
+          "800": "#9a3412",
+          "900": "#7c2d12",
+          "950": "#431407"
+        },
+        "neutral": {
+          "0": "#ffffff",
+          "50": "#fafafa",
+          "100": "#f5f5f5",
+          "200": "#e5e5e5",
+          "300": "#d4d4d4",
+          "400": "#a3a3a3",
+          "500": "#737373",
+          "600": "#525252",
+          "700": "#404040",
+          "800": "#262626",
+          "850": "#1a1a1a",
+          "900": "#111111",
+          "950": "#0a0a0a",
+          "1000": "#000000"
+        }
+      },
+      "gradients": {
+        "brand": {
+          "default": "linear-gradient(135deg, #C80D0D 0%, #ED1515 30%, #f97316 100%)",
+          "sharp": "linear-gradient(90deg,  #C80D0D 0%, #f97316 100%)",
+          "diagonal": "linear-gradient(45deg,  #880000 0%, #ED1515 50%, #fb923c 100%)",
+          "radial": "radial-gradient(circle at 30% 50%, #ED1515 0%, #f97316 60%, #C80D0D 100%)",
+          "glow": "radial-gradient(ellipse at center, rgba(237,21,21,0.35) 0%, transparent 70%)",
+          "text": "linear-gradient(90deg, #ff4444 0%, #ff8c00 100%)"
+        },
+        "surface": {
+          "dark": "linear-gradient(180deg, #0a0a0a 0%, #111111 100%)",
+          "card": "linear-gradient(145deg, #1a1a1a 0%, #111111 100%)",
+          "subtle": "linear-gradient(135deg, rgba(200,13,13,0.05) 0%, rgba(249,115,22,0.05) 100%)"
+        }
+      },
+      "semantic": {
+        "brand": {
+          "primary": "#ED1515",
+          "primaryHover": "#C80D0D",
+          "primaryActive": "#a50f0f",
+          "accent": "#f97316",
+          "accentHover": "#ea580c",
+          "gradient": "linear-gradient(135deg, #C80D0D 0%, #ED1515 30%, #f97316 100%)"
+        },
+        "background": {
+          "page": "#0a0a0a",
+          "surface": "#111111",
+          "elevated": "#1a1a1a",
+          "overlay": "#262626",
+          "glass": "rgba(26, 26, 26, 0.8)"
+        },
+        "text": {
+          "primary": "#ffffff",
+          "secondary": "#a3a3a3",
+          "muted": "#525252",
+          "inverse": "#0a0a0a",
+          "brand": "#ff4444",
+          "gradient": "linear-gradient(90deg, #ff4444 0%, #ff8c00 100%)"
+        },
+        "border": {
+          "default": "rgba(255,255,255,0.08)",
+          "subtle": "rgba(255,255,255,0.04)",
+          "brand": "rgba(237,21,21,0.4)",
+          "strong": "rgba(255,255,255,0.16)"
+        },
+        "status": {
+          "success": "#22c55e",
+          "warning": "#f97316",
+          "error": "#ED1515",
+          "info": "#38bdf8"
+        }
+      }
+    },
+    "spacing": {
+      "base": 4,
+      "scale": {
+        "0": "0px",
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "5": "20px",
+        "6": "24px",
+        "8": "32px",
+        "10": "40px",
+        "12": "48px",
+        "16": "64px",
+        "20": "80px",
+        "24": "96px",
+        "32": "128px",
+        "40": "160px",
+        "48": "192px",
+        "64": "256px"
+      },
+      "layout": {
+        "containerMax": "1280px",
+        "containerPadding": "clamp(16px, 5vw, 80px)",
+        "sectionPaddingY": "clamp(64px, 10vw, 128px)",
+        "gridGap": "24px",
+        "cardPadding": "32px"
+      }
+    },
+    "borderRadius": {
+      "none": "0px",
+      "xs": "2px",
+      "sm": "4px",
+      "md": "8px",
+      "lg": "12px",
+      "xl": "16px",
+      "2xl": "24px",
+      "3xl": "32px",
+      "full": "9999px"
+    },
+    "shadows": {
+      "sm": "0 1px 3px rgba(0,0,0,0.4)",
+      "md": "0 4px 16px rgba(0,0,0,0.5)",
+      "lg": "0 8px 32px rgba(0,0,0,0.6)",
+      "xl": "0 16px 64px rgba(0,0,0,0.7)",
+      "brand": {
+        "sm": "0 0 12px rgba(237,21,21,0.3)",
+        "md": "0 0 24px rgba(237,21,21,0.4)",
+        "lg": "0 0 48px rgba(237,21,21,0.3), 0 0 12px rgba(249,115,22,0.2)",
+        "glow": "0 0 80px rgba(237,21,21,0.25), 0 0 160px rgba(249,115,22,0.1)"
+      }
+    },
+    "effects": {
+      "glassmorphism": {
+        "background": "rgba(26, 26, 26, 0.7)",
+        "backdropFilter": "blur(12px) saturate(1.4)",
+        "border": "1px solid rgba(255,255,255,0.08)"
+      },
+      "noise": {
+        "description": "Subtle grain texture overlay for depth",
+        "css": "url(\"data:image/svg+xml,...\") repeat",
+        "opacity": "0.035"
+      },
+      "scanlines": {
+        "description": "Ultra-subtle horizontal line texture",
+        "opacity": "0.02"
+      }
+    },
+    "animation": {
+      "duration": {
+        "instant": "80ms",
+        "fast": "150ms",
+        "normal": "250ms",
+        "slow": "400ms",
+        "slower": "600ms",
+        "crawl": "1000ms"
+      },
+      "easing": {
+        "default": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "in": "cubic-bezier(0.4, 0, 1, 1)",
+        "out": "cubic-bezier(0, 0, 0.2, 1)",
+        "inOut": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "sharp": "cubic-bezier(0.25, 0, 0, 1)"
+      },
+      "transitions": {
+        "base": "all 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "color": "color 150ms ease, background-color 150ms ease, border-color 150ms ease",
+        "transform": "transform 250ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "opacity": "opacity 250ms ease"
+      }
+    },
+    "components": {
+      "button": {
+        "primary": {
+          "background": "linear-gradient(135deg, #C80D0D 0%, #ED1515 40%, #f97316 100%)",
+          "color": "#ffffff",
+          "border": "none",
+          "borderRadius": "4px",
+          "padding": "12px 28px",
+          "font": "JetBrains Mono",
+          "fontSize": "13px",
+          "fontWeight": "700",
+          "letterSpacing": "0.1em",
+          "textTransform": "uppercase",
+          "shadow": "0 0 24px rgba(237,21,21,0.35)",
+          "hover": {
+            "shadow": "0 0 36px rgba(237,21,21,0.5)",
+            "transform": "translateY(-1px) scale(1.02)"
+          },
+          "active": {
+            "transform": "translateY(0) scale(0.99)"
+          }
+        },
+        "secondary": {
+          "background": "transparent",
+          "color": "#ffffff",
+          "border": "1px solid rgba(237,21,21,0.5)",
+          "borderRadius": "4px",
+          "padding": "12px 28px",
+          "font": "JetBrains Mono",
+          "fontSize": "13px",
+          "fontWeight": "600",
+          "letterSpacing": "0.08em",
+          "textTransform": "uppercase",
+          "hover": {
+            "borderColor": "#ED1515",
+            "color": "#ff4444",
+            "background": "rgba(237,21,21,0.06)"
+          }
+        },
+        "ghost": {
+          "background": "transparent",
+          "color": "#a3a3a3",
+          "border": "none",
+          "padding": "8px 16px",
+          "font": "JetBrains Mono",
+          "fontSize": "13px",
+          "fontWeight": "500",
+          "hover": {
+            "color": "#ffffff"
+          }
+        }
+      },
+      "card": {
+        "default": {
+          "background": "#111111",
+          "border": "1px solid rgba(255,255,255,0.06)",
+          "borderRadius": "12px",
+          "padding": "32px",
+          "shadow": "0 4px 24px rgba(0,0,0,0.4)",
+          "hover": {
+            "border": "1px solid rgba(237,21,21,0.25)",
+            "shadow": "0 8px 40px rgba(0,0,0,0.5), 0 0 20px rgba(237,21,21,0.1)",
+            "transform": "translateY(-2px)"
+          }
+        },
+        "glass": {
+          "background": "rgba(26,26,26,0.7)",
+          "backdropFilter": "blur(12px)",
+          "border": "1px solid rgba(255,255,255,0.08)",
+          "borderRadius": "12px",
+          "padding": "32px"
+        },
+        "featured": {
+          "background": "linear-gradient(145deg, #1a1a1a 0%, #111111 100%)",
+          "borderTop": "1px solid transparent",
+          "borderImage": "linear-gradient(90deg, #C80D0D, #f97316) 1",
+          "borderRadius": "12px",
+          "padding": "40px",
+          "shadow": "0 0 48px rgba(237,21,21,0.12)"
+        }
+      },
+      "navbar": {
+        "background": "rgba(10,10,10,0.85)",
+        "backdropFilter": "blur(20px) saturate(1.5)",
+        "borderBottom": "1px solid rgba(255,255,255,0.06)",
+        "height": "64px",
+        "logoFont": "Bonky",
+        "navFont": "JetBrains Mono",
+        "navFontSize": "13px",
+        "navFontWeight": "500",
+        "navLetterSpacing": "0.05em"
+      },
+      "badge": {
+        "brand": {
+          "background": "rgba(237,21,21,0.12)",
+          "color": "#ff4444",
+          "border": "1px solid rgba(237,21,21,0.25)",
+          "borderRadius": "4px",
+          "padding": "3px 10px",
+          "font": "JetBrains Mono",
+          "fontSize": "11px",
+          "fontWeight": "600",
+          "letterSpacing": "0.1em",
+          "textTransform": "uppercase"
+        }
+      },
+      "input": {
+        "background": "#1a1a1a",
+        "border": "1px solid rgba(255,255,255,0.1)",
+        "borderRadius": "6px",
+        "padding": "12px 16px",
+        "color": "#ffffff",
+        "font": "JetBrains Mono",
+        "fontSize": "14px",
+        "placeholder": "#525252",
+        "focus": {
+          "border": "1px solid rgba(237,21,21,0.6)",
+          "shadow": "0 0 0 3px rgba(237,21,21,0.1)",
+          "outline": "none"
+        }
+      },
+      "divider": {
+        "default": "1px solid rgba(255,255,255,0.06)",
+        "brand": "1px solid rgba(237,21,21,0.2)",
+        "gradient": "linear-gradient(90deg, transparent, rgba(237,21,21,0.4), rgba(249,115,22,0.4), transparent)"
+      }
+    },
+    "layout": {
+      "grid": {
+        "columns": 12,
+        "gap": "24px",
+        "mobileGap": "16px"
+      },
+      "breakpoints": {
+        "xs": "0px",
+        "sm": "480px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1280px",
+        "2xl": "1536px"
+      },
+      "sections": {
+        "hero": {
+          "minHeight": "100vh",
+          "paddingTop": "120px",
+          "description": "Full-viewport hero with Bonky display type, gradient text, and ambient red glow background"
+        },
+        "services": {
+          "paddingY": "128px",
+          "gridCols": "repeat(3, 1fr)",
+          "description": "Service cards with hover border-brand reveal and icon accents"
+        },
+        "work": {
+          "paddingY": "128px",
+          "description": "Portfolio grid with brand-gradient overlays on hover"
+        },
+        "cta": {
+          "paddingY": "96px",
+          "background": "linear-gradient(135deg, rgba(200,13,13,0.08) 0%, rgba(249,115,22,0.04) 100%)",
+          "description": "Full-width CTA banner with glowing border and Bonky headline"
+        },
+        "footer": {
+          "paddingY": "64px",
+          "borderTop": "1px solid rgba(255,255,255,0.06)"
+        }
+      }
+    },
+    "cssVariables": {
+      "comment": "Paste these into your :root {} for instant theming",
+      "variables": {
+        "--color-brand": "#ED1515",
+        "--color-brand-hover": "#C80D0D",
+        "--color-accent": "#f97316",
+        "--color-gradient": "linear-gradient(135deg, #C80D0D 0%, #ED1515 30%, #f97316 100%)",
+        "--color-gradient-text": "linear-gradient(90deg, #ff4444 0%, #ff8c00 100%)",
+        "--color-bg": "#0a0a0a",
+        "--color-surface": "#111111",
+        "--color-elevated": "#1a1a1a",
+        "--color-text": "#ffffff",
+        "--color-text-secondary": "#a3a3a3",
+        "--color-text-muted": "#525252",
+        "--color-border": "rgba(255,255,255,0.08)",
+        "--color-border-brand": "rgba(237,21,21,0.4)",
+        "--shadow-brand-sm": "0 0 12px rgba(237,21,21,0.3)",
+        "--shadow-brand-md": "0 0 24px rgba(237,21,21,0.4)",
+        "--shadow-brand-glow": "0 0 80px rgba(237,21,21,0.25), 0 0 160px rgba(249,115,22,0.1)",
+        "--font-display": "'Bonky', cursive",
+        "--font-mono": "'JetBrains Mono', monospace",
+        "--radius-sm": "4px",
+        "--radius-md": "8px",
+        "--radius-lg": "12px",
+        "--ease-default": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "--ease-spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "--duration-fast": "150ms",
+        "--duration-normal": "250ms"
+      }
+    },
+    "animationsAndMotion": {
+      "comment": "Extraído e adaptado do site landonorris.com — técnicas de animação, não cores",
+      "coreTimingVariables": {
+        "--cubic-default": "cubic-bezier(0.65, 0.05, 0, 1)",
+        "--duration-default": "0.75s",
+        "--animation-default": "var(--duration-default) var(--cubic-default)",
+        "description": "Uma curva única para tudo: rápida no início, decelera com peso. Cria sensação de momentum físico."
+      },
+      "scrollEngine": {
+        "library": "Lenis (smooth scroll)",
+        "behavior": "scroll-behavior: initial no HTML — Lenis assume controle total",
+        "scrollbarHidden": true,
+        "implementation": {
+          "css": [
+            "body ::-webkit-scrollbar { display: none; }",
+            "body { -ms-overflow-style: none; }",
+            "html { scrollbar-width: none; }"
+          ]
+        },
+        "description": "Scrollbar completamente oculta. Lenis cria scroll suave e com inércia, dando sensação premium ao site."
+      },
+      "fluidTypography": {
+        "description": "Sistema de escala de fonte baseado em viewport — fonte cresce e encolhe proporcionalmente à tela, sem breakpoints fixos",
+        "variables": {
+          "--min-width": "992px",
+          "--max-width": "1920px",
+          "--design-width": "1728",
+          "--design-unit": "16",
+          "--scale-factor": "1",
+          "--fluid-font": "calc(clamp(var(--min-width), 100vw, var(--max-width)) / var(--design-width) * var(--design-unit) * var(--scale-factor))"
+        },
+        "mobileOverrides": {
+          "tablet": {
+            "maxWidth": "991px",
+            "designUnit": "20"
+          },
+          "mobileLandscape": {
+            "maxWidth": "767px"
+          },
+          "mobilePortrait": {
+            "maxWidth": "479px",
+            "designUnit": "48"
+          }
+        },
+        "howToUse": "Definir font-size: var(--fluid-font) no html {}. Todos os elementos que usarem rem escalam automaticamente."
+      },
+      "textAnimations": {
+        "splitText": {
+          "description": "Textos são quebrados em .line, .char ou .word para animação individual",
+          "lineClip": {
+            "technique": "clip-path: polygon(0 -2%, 0 94%, 100% 94%, 100% -2%)",
+            "effect": "Cada linha de texto tem um 'envelope' que revela de baixo para cima — como cartas saindo de envelopes",
+            "whitespace": "white-space: nowrap"
+          },
+          "charAnimation": {
+            "display": "inline-block em cada .char para animar individualmente"
+          }
+        },
+        "buttonTextSlide": {
+          "description": "Botões com texto duplicado — hover desliza o texto verticalmente para revelar o segundo",
+          "technique": "text-shadow com offset vertical + transform translateY no hover",
+          "variable": "--text-offset: var(--text--btn-primary)",
+          "css": "[split-text].btn-text { text-shadow: 0px var(--text-offset) currentColor }",
+          "variants": {
+            "primary": "--text--btn-primary",
+            "footer": "--text--btn-footer",
+            "nav": "--text--btn-nav"
+          }
+        },
+        "fontVariationAnimation": {
+          "description": "Fontes variáveis animadas via font-variation-settings — peso e largura mudam no hover",
+          "example": "font-variation-settings: 'wght' 660, 'wdth' 93",
+          "useCase": "Títulos que 'pulsam' ou ficam mais pesados/condensados no hover sem trocar de fonte"
+        }
+      },
+      "marquee": {
+        "description": "Faixa de logos/texto rolando infinitamente — esquerda e direita",
+        "keyframes": {
+          "translateXLeft": "to { transform: translateX(-100%) }",
+          "translateXRight": "to { transform: translateX(100%) }"
+        },
+        "timing": {
+          "duration": "30s",
+          "easing": "linear",
+          "iteration": "infinite"
+        },
+        "playState": "paused por padrão — inicia via JS ao entrar na viewport",
+        "edgeFade": {
+          "description": "Fade nas bordas da marquee em telas largas via mask-image",
+          "css": "mask-image: linear-gradient(90deg, transparent, white 7.5%, white 92.5%, transparent)",
+          "trigger": "min-width: 1920px"
+        }
+      },
+      "clipPathAnimations": {
+        "description": "clip-path usado para revelar/esconder elementos com formas orgânicas",
+        "patterns": {
+          "imageRevealOnHover": {
+            "default": "ellipse(0% 0% at 50% 50%)",
+            "hover": "ellipse(100% 120% at 50% 0%)",
+            "transition": "clip-path var(--animation-default)",
+            "effect": "Imagem 'eclode' de dentro para fora ao hover"
+          },
+          "videoMorphOnHover": {
+            "default": "ellipse(100% 50% at 50% 50%)",
+            "hover": "ellipse(80% 50% at 50% 50%)",
+            "effect": "Vídeo aperta lateralmente no hover, criando forma orgânica"
+          },
+          "raceTrackReveal": {
+            "technique": "clip-path animado para revelar conteúdo seguindo contorno de pista"
+          }
+        }
+      },
+      "svgMaskReveal": {
+        "description": "SVGs usados como máscaras para criar formas complexas e revelar imagens/seções",
+        "technique": [
+          "-webkit-mask-image: url(mask.svg)",
+          "mask-size: cover",
+          "mask-repeat: no-repeat",
+          "mask-position: center"
+        ],
+        "useCases": [
+          "Footer com borda irregular recortada por SVG",
+          "Cards com formato de capacete",
+          "Callouts com formas assimétricas"
+        ],
+        "adaptToYourProject": "Criar SVGs de máscaras com formas ligadas à identidade da agência — ex: formas geométricas afiadas, ângulos dinâmicos"
+      },
+      "scaleOnHover": {
+        "imageInsideCard": {
+          "default": "transform: scale(1)",
+          "hover": "transform: scale(1.1)",
+          "transition": "transform var(--animation-default)",
+          "description": "Imagem dentro do card aumenta levemente enquanto o card fica fixo — efeito de zoom contido"
+        },
+        "cardLift": {
+          "hover": "translateY(-2px) + shadow increase",
+          "description": "Card sobe levemente no hover, combinado com sombra maior"
+        }
+      },
+      "opacityReveal": {
+        "overlayOnHover": {
+          "default": "opacity: 0",
+          "hover": "opacity: 1",
+          "transition": "opacity var(--animation-default)",
+          "description": "Overlay de gradiente/cor aparece sobre card/imagem no hover"
+        }
+      },
+      "navAnimation": {
+        "colorTransition": {
+          "description": "Nav muda de cor ao fazer scroll — tema 'light' vs 'dark' via data-attribute",
+          "transition": "color var(--animation-default), fill var(--animation-default), border-color var(--animation-default), background-color var(--animation-default)",
+          "technique": "[data-nav-theme='dark'] vs [data-nav-theme='light'] controlado via JS no scroll"
+        }
+      },
+      "dropdownAnimation": {
+        "chevronRotate": {
+          "closed": "transform: rotate(-90deg)",
+          "open": "transform: rotate(0deg)",
+          "transition": "transform var(--animation-default)"
+        }
+      },
+      "fontSmoothing": {
+        "description": "Aplicado globalmente para renderização suave das fontes, especialmente em dark backgrounds",
+        "css": [
+          "-webkit-font-smoothing: antialiased",
+          "-moz-osx-font-smoothing: grayscale"
+        ],
+        "important": "Essencial com JetBrains Mono em fundo escuro — sem isso a fonte parece pesada e pixelada"
+      },
+      "textWrap": {
+        "description": "Quebra de texto inteligente para evitar widows e órfãos",
+        "css": "text-wrap: pretty",
+        "applyTo": [
+          "p",
+          ".text-small",
+          ".text-regular",
+          ".text-medium",
+          ".text-large",
+          ".text-xlarge"
+        ]
+      },
+      "selectionStyle": {
+        "description": "Cor de seleção de texto customizada — reforça identidade da marca",
+        "implementation": {
+          "background": "var(--color-brand)",
+          "color": "#000000",
+          "textShadow": "none"
+        },
+        "css": "::selection { background-color: #ED1515; color: #ffffff; text-shadow: none; }"
+      },
+      "focusStyle": {
+        "description": "Focus ring customizado para acessibilidade mantendo identidade visual",
+        "css": ":where(:focus-visible) { outline: 2px solid var(--color-brand); outline-offset: 2px; }"
+      },
+      "scrollTriggeredAnimations": {
+        "library": "GSAP ScrollTrigger (inferido pelo código JS)",
+        "patterns": [
+          "Elementos entram na viewport com translateY + opacity (lines revelam de baixo para cima)",
+          "Seções com pin enquanto animação interna completa",
+          "Parallax em imagens de fundo (transform translateY relativo ao scroll)",
+          "Contador de números animando ao entrar na viewport"
+        ]
+      },
+      "pageTransition": {
+        "description": "Transição de entrada na página (.transition-w visível no load)",
+        "element": ".transition-w { display: flex }",
+        "pattern": "Overlay que cobre a página e desliza para fora ao carregar — cria sensação de site 'abrindo'"
+      },
+      "rive": {
+        "description": "Animações vetoriais interativas via Rive (biblioteca de animação avançada)",
+        "uses": [
+          "Ícones/botões com animação de hover",
+          "Elementos decorativos animados (capacete, veículo)",
+          "Rotação via data-attribute: [data-btn-rive-rotate='true'] — rotate(180deg)"
+        ],
+        "alternativa": "Para sua agência: Lottie ou CSS animations podem substituir para ícones/botões animados"
+      }
+    },
+    "designPrinciples": [
+      "Dark-first: all surfaces are dark; light is reserved for text and brand pops",
+      "Red leads, orange supports: never reverse this hierarchy",
+      "Bonky is a headline-only font — never use it for body or UI text",
+      "JetBrains Mono signals precision and technical competency — embrace it fully",
+      "Gradients should feel lit from within, not painted on — use glows generously",
+      "Borders are whispers, not walls — use low-opacity values",
+      "Motion should feel physical: spring for expand, ease-out for dismiss",
+      "Negative space is not empty — it creates tension and focus"
+    ]
+  }
+}
