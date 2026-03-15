@@ -10,7 +10,9 @@ import { useRouter } from "next/router";
 import { useShallow } from "zustand/react/shallow";
 import { useStore } from "@/store";
 
-function Navbar() {
+const email = "pedrohdev01@gmail.com";
+
+export function Navbar() {
   const isMobile = useIsMobile();
   const router = useRouter();
   const [lenis] = useStore(useShallow((state) => [state.lenis]));
@@ -18,7 +20,11 @@ function Navbar() {
   const scrollToPosition = useCallback(
     (position: number, duration: number = 1.5) => {
       if (lenis) {
-        (lenis as { scrollTo: (pos: number, opts: Record<string, unknown>) => void }).scrollTo(position, {
+        (
+          lenis as {
+            scrollTo: (pos: number, opts: Record<string, unknown>) => void;
+          }
+        ).scrollTo(position, {
           duration,
           force: true,
           easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
@@ -44,15 +50,12 @@ function Navbar() {
       <header className={styles.root} role="banner">
         <div className={styles.innerHeader}>
           <Link onClick={goToTop} aria-label="Go home" scroll={false} href="/">
-            <h4 className={clsx("bold", "h4")}>GIATS</h4>
+            <h4 className={clsx("bold", "h4")}>PEDRO.DEV</h4>
           </Link>
 
           <div className={styles.rightContainer}>
             {!isMobile && (
-              <ButtonLink
-                href="mailto:vaggelisgiats@gmail.com"
-                label="GET IN TOUCH"
-              />
+              <ButtonLink href={`mailto:${email}`} label="Entre em contato" />
             )}
             <MenuButton />
           </div>
@@ -61,5 +64,3 @@ function Navbar() {
     </>
   );
 }
-
-export default Navbar;
