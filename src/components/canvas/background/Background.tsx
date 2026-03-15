@@ -1,11 +1,13 @@
-import * as THREE from 'three';
+"use client";
 
-import { useFrame, useThree } from '@react-three/fiber';
-import { useMemo, useRef } from 'react';
+import * as THREE from "three";
 
-import fragmentShader from '@/components/canvas/background/shaders/fragmentShader';
-import { useWindowSize } from '@darkroom.engineering/hamo';
-import vertexShader from '@/components/canvas/background/shaders/vertexShader';
+import { useFrame, useThree } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+
+import fragmentShader from "@/components/canvas/background/shaders/fragmentShader";
+import { useWindowSize } from "@darkroom.engineering/hamo";
+import vertexShader from "@/components/canvas/background/shaders/vertexShader";
 
 const OFFSET_STEP = 0.00005;
 const OFFSET_MAX = 5.0;
@@ -52,7 +54,12 @@ function Background() {
       uOffsetX: { value: 0.34 },
       uOffsetY: { value: 0.0 },
       uLinesAmount: { value: 5.0 },
-      uPlaneRes: { value: new THREE.Vector2((windowSize as { width: number; height: number }).width, (windowSize as { width: number; height: number }).height) },
+      uPlaneRes: {
+        value: new THREE.Vector2(
+          (windowSize as { width: number; height: number }).width,
+          (windowSize as { width: number; height: number }).height,
+        ),
+      },
       uMouse2D: { value: new THREE.Vector2(1.0, 1.0) },
       uBackgroundScale: { value: 3.0 },
     }),
@@ -61,16 +68,32 @@ function Background() {
 
   useFrame((state, delta) => {
     const mesh = ref.current;
-    if (mesh && mesh.material && (mesh.material as THREE.ShaderMaterial).uniforms) {
+    if (
+      mesh &&
+      mesh.material &&
+      (mesh.material as THREE.ShaderMaterial).uniforms
+    ) {
       const materialUniforms = (mesh.material as THREE.ShaderMaterial).uniforms;
       if (materialUniforms.uTime) {
         materialUniforms.uTime.value += delta * 0.001;
       }
       if (materialUniforms.uOffsetX) {
-        updateOffset(materialUniforms.uOffsetX, isOffsetXIncreasing, OFFSET_STEP, OFFSET_MIN, OFFSET_MAX);
+        updateOffset(
+          materialUniforms.uOffsetX,
+          isOffsetXIncreasing,
+          OFFSET_STEP,
+          OFFSET_MIN,
+          OFFSET_MAX,
+        );
       }
       if (materialUniforms.uOffsetY) {
-        updateOffset(materialUniforms.uOffsetY, isOffsetYIncreasing, OFFSET_STEP, OFFSET_MIN, OFFSET_MAX);
+        updateOffset(
+          materialUniforms.uOffsetY,
+          isOffsetYIncreasing,
+          OFFSET_STEP,
+          OFFSET_MIN,
+          OFFSET_MAX,
+        );
       }
     }
   });

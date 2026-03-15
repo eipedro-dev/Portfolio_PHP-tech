@@ -1,6 +1,8 @@
-import { useFBO } from '@react-three/drei';
-import { useRef } from 'react';
-import { WebGLRenderTarget } from 'three';
+"use client";
+
+import { useFBO } from "@react-three/drei";
+import { useRef } from "react";
+import { WebGLRenderTarget } from "three";
 
 // Interface para o objeto FBO duplo
 interface DoubleFBO {
@@ -10,7 +12,11 @@ interface DoubleFBO {
   dispose: () => void;
 }
 
-const useDoubleFBO = (width: number, height: number, options: Record<string, unknown>): DoubleFBO => {
+const useDoubleFBO = (
+  width: number,
+  height: number,
+  options: Record<string, unknown>,
+): DoubleFBO => {
   const read = useFBO(width, height, options);
 
   const write = useFBO(width, height, options);

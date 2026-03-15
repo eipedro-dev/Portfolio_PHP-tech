@@ -1,8 +1,10 @@
-import clsx from 'clsx';
-import { gsap } from 'gsap';
-import styles from '@/components/ui/infiniteText/infiniteText.module.scss';
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
-import { useRef } from 'react';
+"use client";
+
+import clsx from "clsx";
+import { gsap } from "gsap";
+import styles from "./infiniteText.module.scss";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useRef } from "react";
 
 interface InfiniteTextProps {
   text: string;
@@ -11,7 +13,12 @@ interface InfiniteTextProps {
   hasStroke?: boolean;
 }
 
-function InfiniteText({ text, length, className, hasStroke = true }: InfiniteTextProps) {
+function InfiniteText({
+  text,
+  length,
+  className,
+  hasStroke = true,
+}: InfiniteTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useIsomorphicLayoutEffect(() => {
@@ -32,7 +39,7 @@ function InfiniteText({ text, length, className, hasStroke = true }: InfiniteTex
       const tl = gsap.timeline();
 
       tl.to(container, {
-        ease: 'none',
+        ease: "none",
         duration,
         xPercent: 0,
         repeat: -1,
@@ -45,7 +52,14 @@ function InfiniteText({ text, length, className, hasStroke = true }: InfiniteTex
   return (
     <div ref={containerRef} className={styles.root}>
       {Array.from({ length }, (_, index) => (
-        <div key={`${index}-${text}`} className={clsx(styles.infiniteItem, index % 2 === 0 && hasStroke && styles.stroke, className)}>
+        <div
+          key={`${index}-${text}`}
+          className={clsx(
+            styles.infiniteItem,
+            index % 2 === 0 && hasStroke && styles.stroke,
+            className,
+          )}
+        >
           <span>{text}</span>
         </div>
       ))}

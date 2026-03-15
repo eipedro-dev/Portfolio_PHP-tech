@@ -1,11 +1,11 @@
-@import '@src/styles/reset.scss';
-@import '@src/styles/fonts.scss';
-@import '@src/styles/colors.scss';
-@import '@src/styles/functions.scss';
-@import '@src/styles/layout.scss';
-@import '@src/styles/utils.scss';
-@import '@src/styles/fontStyle.scss';
-@import '@src/styles/scroll.scss';
+@use '@/styles/reset.scss' as *;
+@use '@/styles/fonts.scss' as *;
+@use '@/styles/colors.scss' as *;
+@use '@/styles/functions.scss' as *;
+@use '@/styles/layout.scss' as *;
+@use '@/styles/utils.scss' as *;
+@use '@/styles/fontStyle.scss' as *;
+@use '@/styles/scroll.scss' as *;
 
 html {
   font-weight: bolder;

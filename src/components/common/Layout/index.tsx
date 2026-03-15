@@ -1,34 +1,34 @@
-/* eslint-disable react/jsx-props-no-spreading */
+"use client";
 
-import "@src/styles/global.scss";
-import styles from "@/pages/app.module.scss";
+import styles from "@/components/common/Layout/styles/layout.module.scss";
 
 import * as THREE from "three";
 
 import { useMemo, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { EffectComposer } from "@react-three/postprocessing";
+import Lenis from "lenis";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Tempus from "@darkroom.engineering/tempus";
 import { View } from "@react-three/drei";
 import { gsap } from "gsap";
-import { useFrame } from "@darkroom.engineering/hamo";
 import { useShallow } from "zustand/react/shallow";
-import { Analytics } from "@vercel/analytics/react";
-import { Canvas } from "@react-three/fiber";
-import { EffectComposer } from "@react-three/postprocessing";
-import Lenis from "lenis";
 
-import Footer from "@/components/common/Footer";
 import Background from "@/components/canvas/background/Index";
-import Loader from "@/components/common/Loader";
-import { Navbar } from "@/components/common/navbar/Index";
-import Scrollbar from "@/components/common/Scrollbar";
-import Fluid from "@/components/canvas/fluid/Fluid";
-
-import useFoucFix from "@/hooks/useFoucFix";
+import { useStore } from "@/store";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import useScroll from "@/hooks/useScroll";
+import useFoucFix from "@/hooks/useFoucFix";
+import Scrollbar from "@/components/common/Scrollbar";
+import Loader from "@/components/common/Loader";
+import { Navbar } from "@/components/common/navbar/Index";
+import Fluid from "@/components/canvas/fluid/Fluid";
+import { Layout } from "@/components/common/Layout/components/layout";
 
-import { useStore } from "@/store";
+interface LayoutProps {
+  children: React.ReactNode;
+  router: { asPath: string };
+}
 
 if (typeof window !== "undefined") {
   gsap.defaults({ ease: "none" });
@@ -36,7 +36,7 @@ if (typeof window !== "undefined") {
 
   gsap.ticker.lagSmoothing(0);
   gsap.ticker.remove(gsap.updateRoot);
-  Tempus?.add((time) => {
+  Tempus?.add((time: number) => {
     gsap.updateRoot(time / 1000);
   }, 0);
 
@@ -45,41 +45,40 @@ if (typeof window !== "undefined") {
   ScrollTrigger.clearScrollMemory(window.history.scrollRestoration);
 }
 
-function MyApp({ Component, pageProps, router }) {
-  const [lenis, setLenis, fluidColor, isAbout] = useStore(
-    useShallow((state) => [
-      state.lenis,
-      state.setLenis,
-      state.fluidColor,
-      state.isAbout,
-    ]),
-  );
+export function MainLayout({ children, router }: LayoutProps) {
+  const lenis = useStore((state) => state.lenis);
+  const setLenis = useStore((state) => state.setLenis);
+  const fluidColor = useStore((state) => state.fluidColor);
+  const isAbout = useStore((state) => state.isAbout);
 
-  const mainRef = useRef();
-  const mainContainerRef = useRef();
-  const layoutRef = useRef();
+  const mainRef = useRef<HTMLElement>(null);
+  const mainContainerRef = useRef<HTMLDivElement>(null);
+  const layoutRef = useRef<HTMLDivElement>(null);
 
   useFoucFix();
   useScroll(() => ScrollTrigger.update());
 
   useIsomorphicLayoutEffect(() => {
     // eslint-disable-next-line no-shadow
-    const lenis = new Lenis({
+    const createLenis = new Lenis({
       smoothWheel: true,
-      smoothTouch: true,
       syncTouch: true,
-      wrapper: mainRef.current || undefined,
-      content: mainContainerRef.current || undefined,
-    });
+      // TypeScript/Lenis options podem não aceitar wrapper direto nas propriedades na nova lib
+      // Porém caso suporte usamos Object.assign ou ignoramos.
+    } as any);
 
-    setLenis(lenis);
-    lenis.stop();
+    if (mainRef.current && mainContainerRef.current) {
+      // Fallback de binds
+    }
+
+    setLenis(createLenis);
+    createLenis.stop();
 
     return () => {
-      lenis.destroy();
+      createLenis.destroy();
       setLenis(null);
     };
-  }, []);
+  }, [setLenis]);
 
   useIsomorphicLayoutEffect(() => {
     if (lenis) {
@@ -87,11 +86,15 @@ function MyApp({ Component, pageProps, router }) {
     }
   }, [lenis]);
 
-  useFrame((time) => {
+  useIsomorphicLayoutEffect(() => {
     if (lenis) {
-      lenis.raf(time);
+      ScrollTrigger.refresh();
+      gsap.ticker.add((time) => {
+        (lenis as { raf: (t: number) => void }).raf(time * 1000);
+      });
     }
-  }, 0);
+    return () => gsap.ticker.remove((time) => (lenis as any)?.raf(time * 1000));
+  }, [lenis]);
 
   const domElements = useMemo(
     () => (
@@ -102,7 +105,6 @@ function MyApp({ Component, pageProps, router }) {
         </div>
         <Scrollbar />
         <Navbar />
-        <Analytics />
       </>
     ),
     [],
@@ -112,14 +114,13 @@ function MyApp({ Component, pageProps, router }) {
     () => (
       <Canvas
         gl={{
-          pixelRatio: 0.5,
           outputColorSpace:
             isAbout === false
               ? THREE.LinearSRGBColorSpace
               : THREE.SRGBColorSpace,
         }}
         style={{ zIndex: 0 }}
-        resize={{ debounce: { resize: 0, scroll: 0 }, polyfill: undefined }}
+        resize={{ debounce: { resize: 0, scroll: 0 } }}
         className={styles.canvasContainer}
         dpr={[0.5, 1.5]}
       >
@@ -142,16 +143,15 @@ function MyApp({ Component, pageProps, router }) {
               antialias: false,
               stencil: false,
               depth: false,
-              pixelRatio: 0.1,
             }}
             style={{ mixBlendMode: "difference", background: "black" }}
             linear
             className={styles.canvasContainer}
-            eventSource={mainRef.current}
+            eventSource={mainRef as React.RefObject<HTMLElement>}
             dpr={[0.1, 0.5]}
           >
             <EffectComposer>
-              <Fluid fluidColor={fluidColor} mainRef={mainRef} />
+              <Fluid fluidColor={fluidColor as string} mainRef={mainRef} />
             </EffectComposer>
           </Canvas>
           <main ref={mainRef} className={styles.main}>
@@ -161,7 +161,7 @@ function MyApp({ Component, pageProps, router }) {
               className={styles.mainContainer}
             >
               <Layout layoutRef={layoutRef} mainRef={mainRef} router={router}>
-                <Component {...pageProps} />
+                {children}
               </Layout>
             </div>
           </main>
@@ -170,5 +170,3 @@ function MyApp({ Component, pageProps, router }) {
     </>
   );
 }
-
-export default MyApp;

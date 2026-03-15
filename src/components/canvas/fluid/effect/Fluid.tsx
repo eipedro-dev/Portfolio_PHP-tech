@@ -1,8 +1,10 @@
-import { forwardRef, useMemo } from 'react';
-import { Texture } from 'three';
+"use client";
 
-import FluidEffect from '@/components/canvas/fluid/effect/FluidEffect';
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
+import { forwardRef, useMemo } from "react";
+import { Texture } from "three";
+
+import FluidEffect from "@/components/canvas/fluid/effect/FluidEffect";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 // Interface para as props do wrapper
 interface FluidEffectWrapperProps {
@@ -13,19 +15,24 @@ interface FluidEffectWrapperProps {
   tFluid?: Texture;
 }
 
-const FluidEffectWrapper = forwardRef<unknown, FluidEffectWrapperProps>((props, ref) => {
-  const effect = useMemo(() => new FluidEffect(props), [JSON.stringify(props)]);
+const FluidEffectWrapper = forwardRef<unknown, FluidEffectWrapperProps>(
+  (props, ref) => {
+    const effect = useMemo(
+      () => new FluidEffect(props),
+      [JSON.stringify(props)],
+    );
 
-  useIsomorphicLayoutEffect(
-    () => () => {
-      if (effect) effect.dispose();
-    },
-    [effect],
-  );
+    useIsomorphicLayoutEffect(
+      () => () => {
+        if (effect) effect.dispose();
+      },
+      [effect],
+    );
 
-  return <primitive ref={ref} object={effect} />;
-});
+    return <primitive ref={ref} object={effect} />;
+  },
+);
 
-FluidEffectWrapper.displayName = 'FluidEffectWrapper';
+FluidEffectWrapper.displayName = "FluidEffectWrapper";
 
 export default FluidEffectWrapper;

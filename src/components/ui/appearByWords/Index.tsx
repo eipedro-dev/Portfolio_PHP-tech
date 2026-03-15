@@ -1,9 +1,11 @@
-import { ReactNode, useRef } from 'react';
+"use client";
 
-import clsx from 'clsx';
-import styles from '@/components/ui/appearByWords/appearByWords.module.scss';
-import useIntersected from '@/hooks/useIntersected';
-import useSplitAnimation from '@/hooks/useSplitAnimation';
+import { ReactNode, useRef } from "react";
+
+import clsx from "clsx";
+import styles from "./appearByWords.module.scss";
+import useIntersected from "@/hooks/useIntersected";
+import useSplitAnimation from "@/hooks/useSplitAnimation";
 
 interface AppearByWordsProps {
   children: ReactNode;

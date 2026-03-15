@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useLayoutEffect } from 'react';
 
 // eslint-disable-next-line import/prefer-default-export

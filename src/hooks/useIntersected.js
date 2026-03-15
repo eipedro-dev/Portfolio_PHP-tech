@@ -1,7 +1,9 @@
+"use client";
+
 import { useMemo, useState } from 'react';
 
 import { useIntersection } from 'react-use';
-import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
 
 const useIntersected = (ref, threshold = 0) => {
   const [intersected, setIntersected] = useState(false);

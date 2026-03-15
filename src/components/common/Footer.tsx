@@ -1,68 +1,73 @@
-import AppearTitle from '@src/components/animationComponents/appearTitle/Index';
-import Link from 'next/link';
-import LinkText from '@src/components/animationComponents/linkText/Index';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import clsx from 'clsx';
-import dynamic from 'next/dynamic';
-import footerLinks from '@src/components/dom/navbar/constants/footerLinks';
-import gsap from 'gsap';
-import menuLinks from '@src/components/dom/navbar/constants/menuLinks';
-import styles from '@src/components/dom/styles/footer.module.scss';
-import useIsMobile from '@src/hooks/useIsMobile';
-import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect';
-import { useRef } from 'react';
-import { useShallow } from 'zustand/react/shallow';
-import { useStore } from '@src/store';
-import { useWindowSize } from '@darkroom.engineering/hamo';
+"use client";
 
-const GoTop = dynamic(() => import('@src/components/dom/GoTop'), {
+import Link from "next/link";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import clsx from "clsx";
+import dynamic from "next/dynamic";
+import gsap from "gsap";
+import { useRef } from "react";
+import { useShallow } from "zustand/react/shallow";
+import { useWindowSize } from "@darkroom.engineering/hamo";
+
+import AppearTitle from "@/components/ui/appearTitle/Index";
+import LinkText from "@/components/ui/linkText/Index";
+import footerLinks from "@/components/common/navbar/constants/footerLinks";
+import menuLinks from "@/components/common/navbar/constants/menuLinks";
+import styles from "@/components/common/styles/footer.module.scss";
+
+import useIsMobile from "@/hooks/useIsMobile";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useStore } from "@/store";
+
+const GoTop = dynamic(() => import("@/components/common/GoTop"), {
   ssr: false,
 });
 
 function Footer() {
   const isMobile = useIsMobile();
-  const footerRef = useRef();
-  const [isLoading] = useStore(useShallow((state) => [state.isLoading]));
+  const footerRef = useRef<HTMLElement>(null);
+  const isLoading = useStore((state) => state.isLoading);
   const windowSize = useWindowSize();
 
   useIsomorphicLayoutEffect(() => {
     if (!isLoading) {
       const setupFooterAnimation = () => {
-        gsap.set(footerRef.current, { height: 'auto' });
-        const allSections = document.querySelectorAll('#mainContainer section');
+        if (!footerRef.current) return;
+        gsap.set(footerRef.current, { height: "auto" });
+        const allSections = document.querySelectorAll("#mainContainer section");
         if (allSections.length > 1) {
           const lastSection = allSections[allSections.length - 2];
           if (footerRef.current.offsetHeight <= windowSize.height) {
             gsap.set(footerRef.current, { yPercent: -50 });
             const uncover = gsap.timeline({ paused: true });
-            gsap.set(footerRef.current, { height: '100.5svh' });
+            gsap.set(footerRef.current, { height: "100.5svh" });
             uncover.to(footerRef.current, {
               yPercent: 0,
-              ease: 'none',
+              ease: "none",
             });
             ScrollTrigger.create({
-              id: 'footerTrigger',
-              trigger: lastSection,
-              start: 'bottom bottom',
-              end: '+=100%',
+              id: "footerTrigger",
+              trigger: lastSection as Element,
+              start: "bottom bottom",
+              end: "+=100%",
               animation: uncover,
               scrub: true,
-              scroller: document?.querySelector('main'),
+              scroller: document?.querySelector("main"),
             });
           } else {
             gsap.set(footerRef.current, {
-              transform: 'translate(0%, 0%)',
-              height: 'auto',
+              transform: "translate(0%, 0%)",
+              height: "auto",
             });
           }
         }
       };
 
-      setupFooterAnimation(footerRef, windowSize);
+      setupFooterAnimation();
     }
 
     return () => {
-      const footerTrigger = ScrollTrigger.getById('footerTrigger');
+      const footerTrigger = ScrollTrigger.getById("footerTrigger");
       if (footerTrigger) {
         footerTrigger.kill();
       }
@@ -72,21 +77,23 @@ function Footer() {
   return (
     <section
       ref={footerRef}
-      className={clsx(styles.root, 'layout-grid-inner')}
+      className={clsx(styles.root, "layout-grid-inner")}
       role="contentinfo"
     >
       <div
-        style={{ gridColumn: isMobile ? '1 / 3' : '1 / 5' }}
+        style={{ gridColumn: isMobile ? "1 / 3" : "1 / 5" }}
         className={styles.linksContainer}
       >
         <AppearTitle isFooter>
-          <h6 className={clsx(styles.title, 'h6')}>Sitemap</h6>
+          <h6 className={clsx(styles.title, "h6")}>Sitemap</h6>
           {menuLinks.slice(0, -1).map((link) => (
             <div key={link.title} className={styles.linkTextContainer}>
               <LinkText
-                className={styles.linkText}
+                className={styles.linkText as string}
                 title={link.title}
-                href={link.href}
+                href={link.href as string}
+                spanX={0}
+                svgX={0}
               >
                 <span className="footer">{link.title}</span>
               </LinkText>
@@ -95,18 +102,20 @@ function Footer() {
         </AppearTitle>
       </div>
       <div
-        style={{ gridColumn: isMobile ? '3 / 7' : '5 / 9' }}
+        style={{ gridColumn: isMobile ? "3 / 7" : "5 / 9" }}
         className={styles.linksContainer}
       >
         <AppearTitle isFooter>
-          <h6 className={clsx(styles.title, 'h6')}>Follow me</h6>
+          <h6 className={clsx(styles.title, "h6")}>Follow me</h6>
           {footerLinks.map((link) => (
             <div key={link.title} className={styles.linkTextContainer}>
               <LinkText
                 target
-                className={styles.linkText}
+                className={styles.linkText as string}
                 title={link.title}
-                href={link.href}
+                href={link.href as string}
+                spanX={0}
+                svgX={0}
               >
                 <span className="footer">{link.title}</span>
               </LinkText>
@@ -116,7 +125,7 @@ function Footer() {
       </div>
       <div className={styles.emailContaineer}>
         <AppearTitle isFooter>
-          <h4 className={clsx(styles.workWithMe, 'h4')}>Work With Me:</h4>
+          <h4 className={clsx(styles.workWithMe, "h4")}>Work With Me:</h4>
           <div>
             <div className={styles.link}>
               <Link
@@ -124,7 +133,7 @@ function Footer() {
                 scroll={false}
                 href="mailto:vaggelisgiats@gmail.com"
               >
-                <h4 className={clsx(styles.email, 'h4')}>
+                <h4 className={clsx(styles.email, "h4")}>
                   vaggelisgiats@gmail.com
                 </h4>
               </Link>
@@ -145,13 +154,13 @@ function Footer() {
       <div
         className={styles.middleContainer}
         style={{
-          gridColumn: '13 / 17',
-          textAlign: isMobile ? 'left' : 'right',
+          gridColumn: "13 / 17",
+          textAlign: isMobile ? "left" : "right",
         }}
       >
         <AppearTitle isFooter>
           <div className="p-x">© 2025 · Evangelos Giatsidis</div>
-          <div className={clsx('p-x', styles.middleText)}>
+          <div className={clsx("p-x", styles.middleText)}>
             All Rights Reserved
           </div>
         </AppearTitle>

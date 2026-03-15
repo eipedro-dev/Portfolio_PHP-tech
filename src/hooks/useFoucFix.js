@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable no-shadow */
 import { useEffect } from 'react';
 

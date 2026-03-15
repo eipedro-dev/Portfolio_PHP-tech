@@ -1,9 +1,11 @@
-import { ReactNode, forwardRef, useRef } from 'react';
+"use client";
 
-import clsx from 'clsx';
-import styles from '@/components/ui/appearTitle/appearTitle.module.scss';
-import useIntersected from '@/hooks/useIntersected';
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
+import { ReactNode, forwardRef, useRef } from "react";
+
+import clsx from "clsx";
+import styles from "./appearTitle.module.scss";
+import useIntersected from "@/hooks/useIntersected";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 interface AppearTitleProps {
   children: ReactNode;
@@ -24,10 +26,10 @@ const AppearTitle = forwardRef<HTMLElement[][], AppearTitleProps>(
 
         childArray.forEach((child, i) => {
           if (child instanceof HTMLElement) {
-            child.style.setProperty('--i', String(isFooter ? i : i + 1));
+            child.style.setProperty("--i", String(isFooter ? i : i + 1));
 
             if (!isFooter) {
-              const wrapper = document.createElement('div');
+              const wrapper = document.createElement("div");
               wrapper.appendChild(child.cloneNode(true));
               containerRef.current!.replaceChild(wrapper, child);
             }
@@ -40,7 +42,13 @@ const AppearTitle = forwardRef<HTMLElement[][], AppearTitleProps>(
       <div
         ref={(node) => {
           containerRef.current = node;
-          if (ref && typeof ref !== 'function' && ref.current && index !== -1 && optionIndex !== -1) {
+          if (
+            ref &&
+            typeof ref !== "function" &&
+            ref.current &&
+            index !== -1 &&
+            optionIndex !== -1
+          ) {
             if (!ref.current[index]) ref.current[index] = [];
             ref.current[index][optionIndex] = node as unknown as HTMLElement;
           }
@@ -60,6 +68,6 @@ const AppearTitle = forwardRef<HTMLElement[][], AppearTitleProps>(
   },
 );
 
-AppearTitle.displayName = 'AppearTitle';
+AppearTitle.displayName = "AppearTitle";
 
 export default AppearTitle;

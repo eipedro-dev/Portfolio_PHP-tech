@@ -1,8 +1,11 @@
-import PerspectiveText from "@/components/ui/perspectiveText/Index";
+"use client";
+
 import clsx from "clsx";
-import styles from "@/components/common/navbar/styles/menuButton.module.scss";
 import { useCallback } from "react";
 import { useShallow } from "zustand/react/shallow";
+
+import PerspectiveText from "@/components/ui/perspectiveText/Index";
+import styles from "@/components/common/navbar/styles/menuButton.module.scss";
 import { useStore } from "@/store";
 
 function MenuButton() {

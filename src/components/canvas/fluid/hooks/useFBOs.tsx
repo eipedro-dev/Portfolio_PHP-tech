@@ -1,10 +1,12 @@
-import * as THREE from 'three';
+"use client";
 
-import useDoubleFBO from '@/components/canvas/fluid/hooks/useDoubleFBO';
-import { useFBO } from '@react-three/drei';
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
-import { useMemo } from 'react';
-import useOpts from '@/components/canvas/fluid/hooks/useOpts';
+import * as THREE from "three";
+
+import useDoubleFBO from "@/components/canvas/fluid/hooks/useDoubleFBO";
+import { useFBO } from "@react-three/drei";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMemo } from "react";
+import useOpts from "@/components/canvas/fluid/hooks/useOpts";
 
 const useFBOs = () => {
   const OPTS = useOpts();

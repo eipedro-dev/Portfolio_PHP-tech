@@ -1,7 +1,10 @@
-import { useMemo } from 'react';
+"use client";
+
+import { useMemo } from "react";
 
 const useOpts = () => {
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 812 : false;
+  const isMobile =
+    typeof window !== "undefined" ? window.innerWidth < 812 : false;
   const OPTS = useMemo(
     () => ({
       intensity: 5,
@@ -14,8 +17,8 @@ const useOpts = () => {
       densityDissipation: isMobile ? 0.96 : 0.965,
       velocityDissipation: 0.93,
 
-      fluidColor: '#f0f4f1',
-      backgroundColor: '#070410',
+      fluidColor: "#f0f4f1",
+      backgroundColor: "#070410",
 
       showBackground: false,
 

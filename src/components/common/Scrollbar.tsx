@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "@/components/common/styles/scrollbar.module.scss";
 
 import { useEffect, useRef } from "react";
@@ -9,14 +11,14 @@ import useScroll from "@/hooks/useScroll";
 import { useStore } from "@/store";
 
 export default function Scrollbar() {
-  const progressBar = useRef();
-  const scrollbarRef = useRef();
-  const [isLoading, isMenuOpen, introOut] = useStore(
-    useShallow((state) => [state.isLoading, state.isMenuOpen, state.introOut]),
-  );
-  let fadeTimeout;
+  const progressBar = useRef<HTMLDivElement>(null);
+  const scrollbarRef = useRef<HTMLDivElement>(null);
+  const isLoading = useStore((state) => state.isLoading);
+  const isMenuOpen = useStore((state) => state.isMenuOpen);
+  const introOut = useStore((state) => state.introOut);
+  let fadeTimeout: number | ReturnType<typeof setTimeout> | undefined;
 
-  const updateScrollbar = (scroll, limit) => {
+  const updateScrollbar = (scroll: number, limit: number) => {
     const progress = scroll / limit;
     const maxTopValueInVh = 80 - 6;
     const newTopValueInVh = Math.min(
@@ -30,14 +32,19 @@ export default function Scrollbar() {
     });
   };
 
-  useScroll(({ scroll, limit }) => {
+  useScroll(({ scroll, limit }: { scroll: number; limit: number }) => {
     if (!isLoading && !isMenuOpen) {
-      gsap.to(scrollbarRef.current, { opacity: 1, duration: 0.3 });
+      if (scrollbarRef.current) {
+        gsap.to(scrollbarRef.current, { opacity: 1, duration: 0.3 });
+      }
       updateScrollbar(scroll, limit);
 
-      clearTimeout(fadeTimeout);
+      if (fadeTimeout !== undefined) {
+        clearTimeout(fadeTimeout);
+      }
+
       fadeTimeout = setTimeout(() => {
-        if (scrollbarRef?.current) {
+        if (scrollbarRef.current) {
           gsap.to(scrollbarRef.current, { opacity: 0, duration: 0.5 });
         }
       }, 1500);
@@ -46,7 +53,7 @@ export default function Scrollbar() {
 
   useEffect(
     () => () => {
-      clearTimeout(fadeTimeout);
+      if (fadeTimeout !== undefined) clearTimeout(fadeTimeout);
     },
     [fadeTimeout],
   );

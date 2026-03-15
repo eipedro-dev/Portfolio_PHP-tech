@@ -1,7 +1,9 @@
-import { Effect } from 'postprocessing';
-import { Texture, Uniform, Vector3 } from 'three';
-import fragmentShader from '@/components/canvas/fluid/glsl/post.frag';
-import hexToRgb from '@/components/canvas/fluid/utils';
+"use client";
+
+import { Effect } from "postprocessing";
+import { Texture, Uniform, Vector3 } from "three";
+import fragmentShader from "@/components/canvas/fluid/glsl/post.frag";
+import hexToRgb from "@/components/canvas/fluid/utils";
 
 // Interface para as props do efeito
 interface FluidEffectProps {
@@ -26,7 +28,12 @@ class FluidEffect extends Effect {
   // Propriedade para armazenar o estado
   state: FluidEffectState;
 
-  constructor({ tFluid, intensity = 1.0, fluidColor = '#ffffff', backgroundColor = '#000000' }: FluidEffectProps = {}) {
+  constructor({
+    tFluid,
+    intensity = 1.0,
+    fluidColor = "#ffffff",
+    backgroundColor = "#000000",
+  }: FluidEffectProps = {}) {
     const uniforms = new Map<string, Uniform>(
       Object.entries({
         tFluid: new Uniform(tFluid),
@@ -36,7 +43,7 @@ class FluidEffect extends Effect {
       }),
     );
 
-    super('FluidEffect', fragmentShader, { uniforms });
+    super("FluidEffect", fragmentShader, { uniforms });
 
     this.state = {
       tFluid,
@@ -59,16 +66,16 @@ class FluidEffect extends Effect {
     const newFluidColor = hexToRgb(this.state.fluidColor);
     if (newFluidColor !== this.state.cachedFluidColor) {
       this.state.cachedFluidColor = newFluidColor;
-      this.updateUniform('uColor', newFluidColor);
+      this.updateUniform("uColor", newFluidColor);
     }
 
     const newBackgroundColor = hexToRgb(this.state.backgroundColor);
     if (newBackgroundColor !== this.state.cachedBackgroundColor) {
       this.state.cachedBackgroundColor = newBackgroundColor;
-      this.updateUniform('uBackgroundColor', newBackgroundColor);
+      this.updateUniform("uBackgroundColor", newBackgroundColor);
     }
 
-    this.updateUniform('uIntensity', this.state.intensity);
+    this.updateUniform("uIntensity", this.state.intensity);
   }
 }
 

@@ -1,6 +1,8 @@
-import { RefObject, useEffect, useRef } from 'react';
+"use client";
 
-import { Vector2 } from 'three';
+import { RefObject, useEffect, useRef } from "react";
+
+import { Vector2 } from "three";
 
 // Interface para os dados de cada splat
 interface SplatData {
@@ -27,7 +29,7 @@ const usePointerEvents = (
 
   useEffect(() => {
     if (!mainRef.current) {
-      console.error('Main reference is not initialized');
+      console.error("Main reference is not initialized");
       return undefined;
     }
 
@@ -58,10 +60,12 @@ const usePointerEvents = (
       });
     };
 
-    element.addEventListener('pointermove', handlePointerMove, { passive: true });
+    element.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
 
     return () => {
-      element.removeEventListener('pointermove', handlePointerMove);
+      element.removeEventListener("pointermove", handlePointerMove);
     };
   }, [mainRef, size, force]);
 

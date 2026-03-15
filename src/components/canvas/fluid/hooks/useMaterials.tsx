@@ -1,18 +1,20 @@
-import { ShaderMaterial, Texture, Vector2, Vector3 } from 'three';
+"use client";
 
-import advectionFrag from '@/components/canvas/fluid/glsl/advection.frag';
-import baseVertex from '@/components/canvas/fluid/glsl/base.vert';
-import clearFrag from '@/components/canvas/fluid/glsl/clear.frag';
-import curlFrag from '@/components/canvas/fluid/glsl/curl.frag';
-import divergenceFrag from '@/components/canvas/fluid/glsl/divergence.frag';
-import gradientSubstractFrag from '@/components/canvas/fluid/glsl/gradientSubstract.frag';
-import pressureFrag from '@/components/canvas/fluid/glsl/pressure.frag';
-import splatFrag from '@/components/canvas/fluid/glsl/splat.frag';
-import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
-import { useMemo } from 'react';
-import useOpts from '@/components/canvas/fluid/hooks/useOpts';
-import { useThree } from '@react-three/fiber';
-import vorticityFrag from '@/components/canvas/fluid/glsl/vorticity.frag';
+import { ShaderMaterial, Texture, Vector2, Vector3 } from "three";
+
+import advectionFrag from "@/components/canvas/fluid/glsl/advection.frag";
+import baseVertex from "@/components/canvas/fluid/glsl/base.vert";
+import clearFrag from "@/components/canvas/fluid/glsl/clear.frag";
+import curlFrag from "@/components/canvas/fluid/glsl/curl.frag";
+import divergenceFrag from "@/components/canvas/fluid/glsl/divergence.frag";
+import gradientSubstractFrag from "@/components/canvas/fluid/glsl/gradientSubstract.frag";
+import pressureFrag from "@/components/canvas/fluid/glsl/pressure.frag";
+import splatFrag from "@/components/canvas/fluid/glsl/splat.frag";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useMemo } from "react";
+import useOpts from "@/components/canvas/fluid/hooks/useOpts";
+import { useThree } from "@react-three/fiber";
+import vorticityFrag from "@/components/canvas/fluid/glsl/vorticity.frag";
 
 const useMaterials = () => {
   const size = useThree((s) => s.size);
@@ -169,7 +171,10 @@ const useMaterials = () => {
       const aspectRatio = size.width / (size.height + 400);
 
       if (material.uniforms.texelSize) {
-        material.uniforms.texelSize.value.set(1 / (OPTS.simRes * aspectRatio), 1 / OPTS.simRes);
+        material.uniforms.texelSize.value.set(
+          1 / (OPTS.simRes * aspectRatio),
+          1 / OPTS.simRes,
+        );
       }
       material.vertexShader = baseVertex;
       material.depthTest = false;

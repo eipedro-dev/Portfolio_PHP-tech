@@ -1,21 +1,25 @@
-import ButtonLink from "@/components/ui/buttonLink/Index";
+"use client";
+
 import Link from "next/link";
+import clsx from "clsx";
+import { useCallback } from "react";
+import { usePathname } from "next/navigation";
+import { useShallow } from "zustand/react/shallow";
+
+import ButtonLink from "@/components/ui/buttonLink/Index";
 import MenuButton from "@/components/common/navbar/components/MenuButton";
 import MenuLinks from "@/components/common/navbar/components/MenuLinks";
-import clsx from "clsx";
 import styles from "@/components/common/navbar/styles/index.module.scss";
-import { useCallback } from "react";
+
 import useIsMobile from "@/hooks/useIsMobile";
-import { useRouter } from "next/router";
-import { useShallow } from "zustand/react/shallow";
 import { useStore } from "@/store";
 
 const email = "pedrohdev01@gmail.com";
 
 export function Navbar() {
   const isMobile = useIsMobile();
-  const router = useRouter();
-  const [lenis] = useStore(useShallow((state) => [state.lenis]));
+  const pathname = usePathname();
+  const lenis = useStore((state) => state.lenis);
 
   const scrollToPosition = useCallback(
     (position: number, duration: number = 1.5) => {
@@ -38,10 +42,10 @@ export function Navbar() {
   );
 
   const goToTop = useCallback(() => {
-    if (router.pathname === "/") {
+    if (pathname === "/") {
       scrollToPosition(0);
     }
-  }, [router.pathname, scrollToPosition]);
+  }, [pathname, scrollToPosition]);
 
   return (
     <>

@@ -1,13 +1,15 @@
-import Link from 'next/link';
-import clsx from 'clsx';
-import styles from '@/components/ui/perspectiveText/perspectiveText.module.scss';
+"use client";
+
+import Link from "next/link";
+import clsx from "clsx";
+import styles from "./perspectiveText.module.scss";
 
 interface PerspectiveTextProps {
   label: string;
   label2?: string;
   className?: string | null;
   href?: string;
-  alignItems?: 'center' | 'start' | 'end';
+  alignItems?: "center" | "start" | "end";
 }
 
 function PerspectiveText({
@@ -15,7 +17,7 @@ function PerspectiveText({
   label2,
   className,
   href,
-  alignItems = 'center',
+  alignItems = "center",
 }: PerspectiveTextProps) {
   const alignmentClass = styles[`align-${alignItems}`] || styles.alignCenter;
 
@@ -26,7 +28,11 @@ function PerspectiveText({
           <Link scroll={false} href={href} aria-label={`Navigate to ${label}`}>
             {label}
           </Link>
-          <Link scroll={false} href={href} aria-label={`Navigate to ${label2 || label}`}>
+          <Link
+            scroll={false}
+            href={href}
+            aria-label={`Navigate to ${label2 || label}`}
+          >
             {label2 || label}
           </Link>
         </>
@@ -45,7 +51,9 @@ function PerspectiveText({
       <div
         className={clsx(
           alignmentClass,
-          className === null ? styles.perspectiveText : clsx(className || 'p-s', styles.perspectiveText)
+          className === null
+            ? styles.perspectiveText
+            : clsx(className || "p-s", styles.perspectiveText),
         )}
       >
         {renderContent()}

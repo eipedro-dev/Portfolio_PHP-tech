@@ -1,14 +1,23 @@
-/* eslint-disable @react-three/no-new-in-loop */
+"use client";
 
-import { Camera, Mesh, Scene, ShaderMaterial, Texture, Vector2, Vector3, WebGLRenderTarget } from 'three';
-import { createPortal, useFrame, useThree } from '@react-three/fiber';
-import { RefObject, useCallback, useRef } from 'react';
+import {
+  Camera,
+  Mesh,
+  Scene,
+  ShaderMaterial,
+  Texture,
+  Vector2,
+  Vector3,
+  WebGLRenderTarget,
+} from "three";
+import { createPortal, useFrame, useThree } from "@react-three/fiber";
+import { RefObject, useCallback, useRef } from "react";
 
-import Effect from '@/components/canvas/fluid/effect/Fluid';
-import useFBOs from '@/components/canvas/fluid/hooks/useFBOs';
-import useMaterials from '@/components/canvas/fluid/hooks/useMaterials';
-import useOpts from '@/components/canvas/fluid/hooks/useOpts';
-import usePointerEvents from '@/components/canvas/fluid/hooks/usePointerEvents';
+import Effect from "@/components/canvas/fluid/effect/Fluid";
+import useFBOs from "@/components/canvas/fluid/hooks/useFBOs";
+import useMaterials from "@/components/canvas/fluid/hooks/useMaterials";
+import useOpts from "@/components/canvas/fluid/hooks/useOpts";
+import usePointerEvents from "@/components/canvas/fluid/hooks/usePointerEvents";
 
 // Tipagem das props do componente Fluid
 interface FluidProps {
@@ -17,14 +26,33 @@ interface FluidProps {
 }
 
 // Tipo para os nomes de materiais disponíveis
-type MaterialName = 'splat' | 'curl' | 'clear' | 'divergence' | 'pressure' | 'gradientSubstract' | 'advection' | 'vorticity';
+type MaterialName =
+  | "splat"
+  | "curl"
+  | "clear"
+  | "divergence"
+  | "pressure"
+  | "gradientSubstract"
+  | "advection"
+  | "vorticity";
 
 // Tipo para os nomes de FBOs disponíveis
-type FBOName = 'density' | 'velocity' | 'pressure' | 'divergence' | 'curl';
+type FBOName = "density" | "velocity" | "pressure" | "divergence" | "curl";
 
 function Fluid({ mainRef, fluidColor }: FluidProps) {
   const OPTS = useOpts();
-  const { force, radius, curl, swirl, intensity, backgroundColor, showBackground, pressure, densityDissipation, velocityDissipation } = OPTS;
+  const {
+    force,
+    radius,
+    curl,
+    swirl,
+    intensity,
+    backgroundColor,
+    showBackground,
+    pressure,
+    densityDissipation,
+    velocityDissipation,
+  } = OPTS;
   const size = useThree((three) => three.size);
   const gl = useThree((three) => three.gl);
 
@@ -48,7 +76,7 @@ function Fluid({ mainRef, fluidColor }: FluidProps) {
   const setRenderTarget = useCallback(
     (name: FBOName) => {
       const target = FBOs[name] as unknown as Record<string, unknown>;
-      if ('write' in target) {
+      if ("write" in target) {
         gl.setRenderTarget(target.write as WebGLRenderTarget);
         gl.clear();
         gl.render(bufferScene.current, bufferCamera.current);
@@ -80,50 +108,79 @@ function Fluid({ mainRef, fluidColor }: FluidProps) {
       if (!splat) continue;
       const { mouseX, mouseY, velocityX, velocityY } = splat;
 
-      setShaderMaterial('splat');
-      setUniforms('splat', 'uTarget', FBOs.velocity.read.texture);
-      setUniforms('splat', 'uPointer', new Vector2(mouseX, mouseY));
-      setUniforms('splat', 'uColor', new Vector3(velocityX, velocityY, 10.0));
-      setUniforms('splat', 'uRadius', radius / 100.0);
-      setRenderTarget('velocity');
-      setUniforms('splat', 'uTarget', FBOs.density.read.texture);
-      setRenderTarget('density');
+      setShaderMaterial("splat");
+      setUniforms("splat", "uTarget", FBOs.velocity.read.texture);
+      setUniforms("splat", "uPointer", new Vector2(mouseX, mouseY));
+      setUniforms("splat", "uColor", new Vector3(velocityX, velocityY, 10.0));
+      setUniforms("splat", "uRadius", radius / 100.0);
+      setRenderTarget("velocity");
+      setUniforms("splat", "uTarget", FBOs.density.read.texture);
+      setRenderTarget("density");
     }
 
-    const shaderUpdates: Array<{ material: MaterialName; uniforms: Record<string, unknown>; target: FBOName }> = [
-      { material: 'curl', uniforms: { uVelocity: FBOs.velocity.read.texture }, target: 'curl' },
-      { material: 'vorticity', uniforms: { uVelocity: FBOs.velocity.read.texture, uCurl: FBOs.curl.texture, uCurlValue: curl }, target: 'velocity' },
-      { material: 'divergence', uniforms: { uVelocity: FBOs.velocity.read.texture }, target: 'divergence' },
-      { material: 'clear', uniforms: { uTexture: FBOs.pressure.read.texture, uClearValue: pressure }, target: 'pressure' },
+    const shaderUpdates: Array<{
+      material: MaterialName;
+      uniforms: Record<string, unknown>;
+      target: FBOName;
+    }> = [
+      {
+        material: "curl",
+        uniforms: { uVelocity: FBOs.velocity.read.texture },
+        target: "curl",
+      },
+      {
+        material: "vorticity",
+        uniforms: {
+          uVelocity: FBOs.velocity.read.texture,
+          uCurl: FBOs.curl.texture,
+          uCurlValue: curl,
+        },
+        target: "velocity",
+      },
+      {
+        material: "divergence",
+        uniforms: { uVelocity: FBOs.velocity.read.texture },
+        target: "divergence",
+      },
+      {
+        material: "clear",
+        uniforms: {
+          uTexture: FBOs.pressure.read.texture,
+          uClearValue: pressure,
+        },
+        target: "pressure",
+      },
     ];
 
     shaderUpdates.forEach(({ material, uniforms, target }) => {
       setShaderMaterial(material);
-      Object.entries(uniforms).forEach(([key, value]) => setUniforms(material, key, value));
+      Object.entries(uniforms).forEach(([key, value]) =>
+        setUniforms(material, key, value),
+      );
       setRenderTarget(target);
     });
 
-    setShaderMaterial('pressure');
-    setUniforms('pressure', 'uDivergence', FBOs.divergence.texture);
+    setShaderMaterial("pressure");
+    setUniforms("pressure", "uDivergence", FBOs.divergence.texture);
     for (let i = 0; i < swirl; i += 1) {
-      setUniforms('pressure', 'uPressure', FBOs.pressure.read.texture);
-      setRenderTarget('pressure');
+      setUniforms("pressure", "uPressure", FBOs.pressure.read.texture);
+      setRenderTarget("pressure");
     }
 
-    setShaderMaterial('gradientSubstract');
-    setUniforms('gradientSubstract', 'uPressure', FBOs.pressure.read.texture);
-    setUniforms('gradientSubstract', 'uVelocity', FBOs.velocity.read.texture);
-    setRenderTarget('velocity');
+    setShaderMaterial("gradientSubstract");
+    setUniforms("gradientSubstract", "uPressure", FBOs.pressure.read.texture);
+    setUniforms("gradientSubstract", "uVelocity", FBOs.velocity.read.texture);
+    setRenderTarget("velocity");
 
-    setShaderMaterial('advection');
-    setUniforms('advection', 'uVelocity', FBOs.velocity.read.texture);
-    setUniforms('advection', 'uSource', FBOs.velocity.read.texture);
-    setUniforms('advection', 'uDissipation', velocityDissipation);
-    setRenderTarget('velocity');
+    setShaderMaterial("advection");
+    setUniforms("advection", "uVelocity", FBOs.velocity.read.texture);
+    setUniforms("advection", "uSource", FBOs.velocity.read.texture);
+    setUniforms("advection", "uDissipation", velocityDissipation);
+    setRenderTarget("velocity");
 
-    setUniforms('advection', 'uSource', FBOs.density.read.texture);
-    setUniforms('advection', 'uDissipation', densityDissipation);
-    setRenderTarget('density');
+    setUniforms("advection", "uSource", FBOs.density.read.texture);
+    setUniforms("advection", "uDissipation", densityDissipation);
+    setRenderTarget("density");
 
     gl.setRenderTarget(null);
     gl.clear();

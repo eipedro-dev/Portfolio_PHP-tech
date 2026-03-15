@@ -1,6 +1,8 @@
-import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect';
+"use client";
+
+import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
 import { useShallow } from 'zustand/react/shallow';
-import { useStore } from '@src/store';
+import { useStore } from '@/store';
 
 function useScroll(callback, deps = []) {
   const [lenis] = useStore(useShallow((state) => [state.lenis]));

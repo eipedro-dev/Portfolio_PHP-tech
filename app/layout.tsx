@@ -1,5 +1,9 @@
+import "@/styles/global.scss";
 import "@/styles/global.css";
+
 import type { Metadata, Viewport } from "next";
+
+import { MainLayout } from "@/components/common/Layout/index";
 
 const SITE_URL = "https://pedro.dev";
 const OG_IMAGE = `${SITE_URL}/og.png`;
@@ -92,11 +96,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   const schemaOrgJSONLD = {
     "@context": "http://schema.org",
     "@type": "Person",
@@ -114,18 +118,59 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="preload" href="/fonts/NeueHaasDisplayBold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/NeueHaasDisplayLight.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/NeueHaasDisplayLightItalic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/NeueHaasDisplayMedium.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/NeueHaasDisplayRoman.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/fonts/NeueHaasDisplayRomanItalic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="icon" href="/favicon.png" />
+        <link
+          rel="preload"
+          href="/fonts/NeueHaasDisplayBold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/NeueHaasDisplayLight.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/NeueHaasDisplayLightItalic.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/NeueHaasDisplayMedium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/NeueHaasDisplayRoman.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/NeueHaasDisplayRomanItalic.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgJSONLD) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <main>
+          <MainLayout router={{ asPath: "/" }}>{children}</MainLayout>
+        </main>
+      </body>
     </html>
   );
 }
