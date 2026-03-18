@@ -4,15 +4,15 @@ const menuLinks = [
     href: '/',
   },
   {
-    title: 'About me',
+    title: 'Sobre Mim',
     href: '/about',
   },
   {
-    title: 'Projects',
+    title: 'Projetos',
     href: '/projects',
   },
   {
-    title: 'Contact',
+    title: 'Contato',
     href: undefined,
   },
 ];

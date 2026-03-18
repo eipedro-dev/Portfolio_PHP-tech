@@ -199,14 +199,14 @@ function Loader() {
       <div className={styles.innerContainer}>
         <div className={styles.fullNameContainer}>
           <h2 ref={fullNameRef} className={clsx(styles.fullName, "h2")}>
-            {introOut ? "Loading" : "Evangelos Giatsidis"}
+            {introOut ? "Loading" : "Pedro Henrique"}
           </h2>
         </div>
 
         {!introOut && (
           <div className={styles.shortNameContainer}>
             <h2 ref={shortNameRef} className={clsx(styles.shortName, "h2")}>
-              Call me Giats
+              Olá, eu sou Pedro Henrique
             </h2>
           </div>
         )}

@@ -106,7 +106,7 @@ function Footer() {
         className={styles.linksContainer}
       >
         <AppearTitle isFooter>
-          <h6 className={clsx(styles.title, "h6")}>Follow me</h6>
+          <h6 className={clsx(styles.title, "h6")}>Me Siga</h6>
           {footerLinks.map((link) => (
             <div key={link.title} className={styles.linkTextContainer}>
               <LinkText
@@ -125,16 +125,16 @@ function Footer() {
       </div>
       <div className={styles.emailContaineer}>
         <AppearTitle isFooter>
-          <h4 className={clsx(styles.workWithMe, "h4")}>Work With Me:</h4>
+          <h4 className={clsx(styles.workWithMe, "h4")}>Trabalhe Comigo:</h4>
           <div>
             <div className={styles.link}>
               <Link
                 aria-label="Send email"
                 scroll={false}
-                href="mailto:vaggelisgiats@gmail.com"
+                href="mailto:pedrohdev01@gmail.com"
               >
                 <h4 className={clsx(styles.email, "h4")}>
-                  vaggelisgiats@gmail.com
+                  pedrohdev01@gmail.com
                 </h4>
               </Link>
               {/* class="link__graphic link__graphic--slide" */}
@@ -167,7 +167,7 @@ function Footer() {
       </div>
 
       <div className={styles.giats}>
-        <span>GIATS</span>
+        <span>PEDRO H</span>
       </div>
       <div className={styles.goToTop}>
         <GoTop />

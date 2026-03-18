@@ -242,9 +242,9 @@ function MenuLinks() {
             <Link
               aria-label="Send email"
               scroll={false}
-              href="mailto:vaggelisgiats@gmail.com"
+              href="mailto:pedrohdev01@gmail.com"
             >
-              <span>GET IN TOUCH</span>
+              <span>Entre em Contato</span>
             </Link>
           </div>
         </div>

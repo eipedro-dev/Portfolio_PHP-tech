@@ -1,6 +1,8 @@
+"use client";
+
 import SplitType from 'split-type';
 import { gsap } from 'gsap';
-import { useIsomorphicLayoutEffect } from '@src/hooks/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
 
 const useSplitAnimation = (ref, styles) => {
   useIsomorphicLayoutEffect(() => {
