@@ -1,0 +1,223 @@
+@use '@/styles/functions' as *;
+
+// ─── Root ─────────────────────────────────────────────────────────────────────
+// layout-grid-inner aplica padding lateral + grid de 16 colunas
+.root {
+  position: relative;
+  padding-top: desktop-vw(96px);
+  padding-bottom: desktop-vw(96px);
+  row-gap: 0 !important;
+  align-items: stretch;
+
+  // Moldura branca nas bordas — cobre o canvas 3D global que vaza pelo padding
+  // Mesmo padrão do Hero (box-shadow inset nas 4 bordas)
+  box-shadow:
+    inset 0 desktop-vw(97px) 0 0 var(--white),
+    inset calc(var(--layout-margin) * -1.05) 0 0 0 var(--white),
+    inset 0 desktop-vw(-97px) 0 0 var(--white),
+    inset calc(var(--layout-margin) * 1.05) 0 0 0 var(--white);
+
+  @include mobile {
+    padding-top: mobile-vw(64px);
+    padding-bottom: mobile-vw(64px);
+    row-gap: mobile-vw(32px) !important;
+    box-shadow:
+      inset 0 mobile-vw(65px) 0 0 var(--white),
+      inset calc(var(--layout-margin) * -1.1) 0 0 0 var(--white),
+      inset 0 mobile-vw(-65px) 0 0 var(--white),
+      inset calc(var(--layout-margin) * 1.1) 0 0 0 var(--white);
+  }
+}
+
+// ─── Coluna esquerda — 8 colunas de 16 ───────────────────────────────────────
+.leftCol {
+  grid-column: 1 / 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: desktop-vw(48px);
+  // Fundo branco cobre coluna + gap entre colunas para impedir canvas 3D de vazar
+  background-color: var(--white);
+  position: relative;
+  z-index: 2;
+  // Estende o fundo branco para cobrir o grid-gap entre leftCol e rightCol
+  padding-right: var(--layout-columns-gap);
+  margin-right: calc(var(--layout-columns-gap) * -1);
+
+  @include mobile {
+    grid-column: 1 / -1;
+    order: 2;
+    gap: mobile-vw(40px);
+    padding-right: 0;
+    margin-right: 0;
+  }
+}
+
+// ─── Statement ────────────────────────────────────────────────────────────────
+.statementBlock {
+  flex: 0 0 auto;
+}
+
+.statement {
+  color: var(--black);
+  line-height: 1.2;
+  max-width: 99%;
+}
+
+// ─── Divisor ──────────────────────────────────────────────────────────────────
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--black);
+  opacity: 0.12;
+  flex: 0 0 auto;
+  margin: desktop-vw(40px) 0;
+
+  @include mobile {
+    margin: mobile-vw(28px) 0;
+  }
+}
+
+// ─── Linha inferior: texto + CTA ─────────────────────────────────────────────
+.bottomRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: desktop-vw(32px);
+  flex: 0 0 auto;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: mobile-vw(24px);
+  }
+}
+
+.textGroup {
+  display: flex;
+  flex-direction: column;
+  gap: desktop-vw(12px);
+  max-width: desktop-vw(340px);
+
+  @include mobile {
+    max-width: 100%;
+    gap: mobile-vw(10px);
+  }
+}
+
+.label {
+  color: var(--black);
+  opacity: 0.38;
+}
+
+.body {
+  color: var(--black);
+  line-height: 1.65;
+}
+
+// ─── CTA ──────────────────────────────────────────────────────────────────────
+.ctaGroup {
+  flex-shrink: 0;
+  padding-bottom: desktop-vw(2px);
+}
+
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: desktop-vw(8px);
+  color: var(--black);
+  text-decoration: none;
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: desktop-vw(6px);
+
+  @include mobile {
+    gap: mobile-vw(8px);
+    padding-bottom: mobile-vw(6px);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--black);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  @media (hover: hover) {
+    &:hover::after {
+      transform: scaleX(0);
+      transform-origin: right;
+    }
+
+    &:hover .ctaArrow {
+      transform: translateX(5px);
+    }
+  }
+}
+
+.ctaArrow {
+  display: inline-block;
+  transition: transform 0.32s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+// ─── Coluna direita — colunas 9 a 16 (8 colunas) ─────────────────────────────
+.rightCol {
+  grid-column: 9 / -1;
+  position: relative;
+  min-height: desktop-vw(600px);
+  z-index: 1;
+  // Fundo branco na margem ao redor do bottomContainer
+  // O bottomContainer fica sem fundo → mostra canvas 3D pelos recortes da máscara
+  overflow: hidden;
+
+  @include mobile {
+    grid-column: 1 / -1;
+    order: 1;
+    min-height: mobile-vw(480px);
+  }
+}
+
+// ─── Container estilo bottomContainer do Hero ─────────────────────────────────
+// position: absolute com inset: 0 para preencher toda a rightCol
+// SEM background-color → o fundo vem do canvas 3D global (FloatingMeshes)
+// O svgWrapper fica absolute por cima para recortar a máscara SVG
+.bottomContainer {
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 0 0 1vw var(--white);
+  border-radius: var(--layout-columns-gap);
+  overflow: hidden;
+
+  @include mobile {
+    box-shadow: 0 0 0 2vw var(--white);
+    border-radius: calc(var(--layout-columns-gap) * 0.5);
+  }
+
+  // ─── SVG wrapper (nested como no Hero) ────────────────────────────────
+  .svgWrapper {
+    width: 100.1%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    > svg {
+      display: block;
+    }
+
+    .maskWhite {
+      fill: white;
+    }
+
+    .maskFill {
+      fill: var(--white);
+      -webkit-mask: url(#statement-grid-mask);
+      mask: url(#statement-grid-mask);
+    }
+  }
+}

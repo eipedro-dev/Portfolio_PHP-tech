@@ -103,15 +103,17 @@ function Loader() {
               }
             }
 
-            (
-              lenis as {
-                scrollTo: (
-                  target: number,
-                  options: Record<string, unknown>,
-                ) => void;
-                start: () => void;
-              }
-            ).scrollTo(0, { force: true });
+            if (lenis) {
+              (
+                lenis as {
+                  scrollTo: (
+                    target: number,
+                    options: Record<string, unknown>,
+                  ) => void;
+                  start: () => void;
+                }
+              ).scrollTo(0, { force: true });
+            }
 
             gsap.set(document?.getElementById("layout"), {
               height: "90%",
@@ -173,7 +175,9 @@ function Loader() {
               onComplete: () => {
                 setIntroOut(true);
                 setIsLoading(false);
-                (lenis as { start: () => void }).start();
+                if (lenis) {
+                  (lenis as { start: () => void }).start();
+                }
               },
             });
           },

@@ -2,28 +2,28 @@
 
 import { useCallback, useMemo, useRef, useState } from "react";
 
-import FloatingMeshes from "./components/floatingMeshes/Index";
-import InfiniteText from "@/components/ui/infiniteText/Index";
+import AppearByWords from "@/components/ui/appearByWords/Index";
+import AppearTitle from "@/components/ui/appearTitle/Index";
+import FloatingMeshes from "./floatingMeshes/Index";
 import clsx from "clsx";
 import { gsap } from "gsap";
-import styles from "./styles/home.module.scss";
+import styles from "./styles/statement.module.scss";
 import useIsMobile from "@/hooks/useIsMobile";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
-// Tipagem para posição de retângulo
+// ─── Types ────────────────────────────────────────────────────────────────────
 interface RectPosition {
   index: number;
   x: string;
   y: string;
 }
-
-// Tipagem para movimento
 interface Movement {
   index: number;
   x: string;
   y: string;
 }
 
+// ─── Helpers de movimento — idênticos ao Hero ─────────────────────────────────
 const moveRect = (
   rect: RectPosition,
   direction: string,
@@ -123,46 +123,39 @@ const performMoves = (
   return allMovements;
 };
 
-export const Hero = () => {
+// ─── Component ───────────────────────────────────────────────────────────────
+export const Statement = () => {
   const isMobile = useIsMobile();
   const [timeline, setTimeline] = useState<gsap.core.Timeline | null>(null);
 
-  const rootRef = useRef<HTMLElement>(null);
   const rectRefs = useRef<(SVGRectElement | null)[]>([]);
   const svgRef = useRef<SVGSVGElement>(null);
   const divWrapper = useRef<HTMLDivElement>(null);
-  const infiniteTextRef = useRef<HTMLDivElement>(null);
 
+  // Grid 2×3 = 6 slots. Apenas 4 tiles preenchidos → 2 slots vazios para animação.
+  // gridWidth = 50% (2 colunas), gridHeight = 33.33% (3 linhas)
   const initialPositions: RectPosition[] = useMemo(
     () =>
       !isMobile
         ? [
-            { index: 0, x: "0.00%", y: "50.00%" },
-            { index: 1, x: "16.67%", y: "0.00%" },
-            { index: 2, x: "33.34%", y: "0.00%" },
-            { index: 3, x: "50.01%", y: "0.00%" },
-            { index: 4, x: "66.68%", y: "50.00%" },
-            { index: 5, x: "83.35%", y: "50.00%" },
-            { index: 6, x: "33.34%", y: "50.00%" },
+            // 4 tiles em grid 2×3 — 2 slots livres para movimento
+            { index: 0, x: "0.00%", y: "0.00%" },
+            { index: 1, x: "50.00%", y: "33.33%" },
+            { index: 2, x: "0.00%", y: "66.66%" },
+            { index: 3, x: "50.00%", y: "66.66%" },
           ]
         : [
+            // Mobile: 4 tiles em grid 2×3
             { index: 0, x: "0.00%", y: "0.00%" },
-            { index: 1, x: "20.00%", y: "0.00%" },
-            { index: 2, x: "60.00%", y: "0.00%" },
-            { index: 3, x: "20.00%", y: "20.00%" },
-            { index: 4, x: "80.00%", y: "20.00%" },
-            { index: 5, x: "20.00%", y: "40.00%" },
-            { index: 6, x: "60.00%", y: "40.00%" },
-            { index: 7, x: "40.00%", y: "60.00%" },
-            { index: 8, x: "80.00%", y: "60.00%" },
-            { index: 9, x: "20.00%", y: "80.00%" },
-            { index: 10, x: "60.00%", y: "80.00%" },
+            { index: 1, x: "50.00%", y: "33.33%" },
+            { index: 2, x: "0.00%", y: "66.66%" },
+            { index: 3, x: "50.00%", y: "66.66%" },
           ],
     [isMobile],
   );
 
-  const gridWidth = useMemo(() => (!isMobile ? 16.67 : 20.0), [isMobile]);
-  const gridHeight = useMemo(() => (!isMobile ? 50.0 : 20.0), [isMobile]);
+  const gridWidth = useMemo(() => 50.0, []);
+  const gridHeight = useMemo(() => 33.33, []);
 
   const animateRectangles = useCallback(
     (movements: Movement[][]) => {
@@ -186,7 +179,7 @@ export const Hero = () => {
                 ease: "power2.inOut",
                 duration: 1,
                 attr: { x, y },
-                delay: 2,
+                delay: 0.8,
               },
               0,
             );
@@ -241,40 +234,8 @@ export const Hero = () => {
     };
   }, [animateRectangles]);
 
-  useIsomorphicLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top+=3%",
-            end: "top+=5%",
-            toggleActions: "play none reverse none",
-            scroller: document.querySelector("main"),
-            invalidateOnRefresh: true,
-          },
-        })
-        .to(infiniteTextRef.current, {
-          opacity: 0,
-          duration: 0.6,
-        });
-    });
-
-    return () => ctx.kill();
-  }, []);
-
-  const onMouseEnter = () => {
-    gsap.to(svgRef.current, { autoAlpha: 0 });
-    gsap.to(divWrapper.current, { autoAlpha: 0 });
-  };
-
-  const onMouseLeave = () => {
-    gsap.to(svgRef.current, { autoAlpha: 1 });
-    gsap.to(divWrapper.current, { autoAlpha: 1 });
-  };
-
+  // Renderiza os retângulos da máscara SVG
   const renderRects = useMemo(
-    // eslint-disable-next-line no-return-assign
     () =>
       initialPositions.map(({ index, x, y }) => (
         <rect
@@ -292,69 +253,92 @@ export const Hero = () => {
   );
 
   return (
-    <section ref={rootRef} className={clsx(styles.root)}>
-      <div className={clsx(styles.topContainer, "layout-grid-inner")}>
-        <div className={styles.leftContainer}>
-          <h2 className="h3">Design que não grita.</h2>
-          <h2 className={clsx("h3", "bold")}>Sistemas que não param.</h2>
+    <section className={clsx(styles.root, "layout-grid-inner")}>
+      {/* ── Coluna esquerda ─────────────────────────────────────────────── */}
+      <div className={styles.leftCol}>
+        {/* Statement — título grande */}
+        <div className={styles.statementBlock}>
+          <AppearByWords>
+            <h2 className={clsx("h4", styles.statement)}>
+              Muitos negócios investem em tráfego antes de ter uma página que
+              converte. Investem em conteúdo antes de ter uma marca que impõe.
+              <br />
+              Resolvo isso — com design e estratégia que andam juntos desde o
+              primeiro dia.
+            </h2>
+          </AppearByWords>
         </div>
-        {!isMobile && (
-          <h6 className={clsx("h6", styles.rightContainer)}>
-            Construo landing pages, sites, e-commerces, automações e sistemas
-            web com design limpo e estratégia precisa — para negócios que tratam
-            o digital como vantagem competitiva.
-          </h6>
-        )}
+
+        {/* Divisor */}
+        <div className={styles.divider} />
+
+        {/* Bottom row: label+corpo à esquerda | CTA à direita */}
+        <div className={styles.bottomRow}>
+          <div className={styles.textGroup}>
+            <AppearTitle>
+              <p className={clsx("p-xs", styles.label)}>
+                (Projeto com resultado)
+              </p>
+            </AppearTitle>
+            <AppearTitle>
+              <p className={clsx("p-l", styles.body)}>
+                Não entrego página. Entrego estrutura pensada para converter,
+                posicionar e crescer com o negócio.
+              </p>
+            </AppearTitle>
+          </div>
+
+          <div className={styles.ctaGroup}>
+            <AppearTitle>
+              <a href="#contact" className={clsx("p-l", styles.ctaLink)}>
+                Solicitar orçamento
+                <span className={styles.ctaArrow} aria-hidden="true">
+                  →
+                </span>
+              </a>
+            </AppearTitle>
+          </div>
+        </div>
       </div>
 
-      <div className={styles.bottomContainer}>
-        <FloatingMeshes />
-        <div
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-          className={styles.svgWrapper}
-        >
-          <svg
-            ref={svgRef}
-            width="100%"
-            height="100%"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-          >
-            <rect
-              x="0"
-              y="0"
-              className={styles.mask2}
+      {/* ── Coluna direita — grid animado estilo Hero ──────────────────── */}
+      <div className={styles.rightCol}>
+        <div className={styles.bottomContainer}>
+          {/* Fundo 3D com esferas — renderiza atrás do SVG mask */}
+          <FloatingMeshes />
+          {/* SVG mask — recorta buracos para mostrar fundo branco da página */}
+          <div className={styles.svgWrapper}>
+            <svg
+              ref={svgRef}
               width="100%"
-              height="100.3%"
-            />
-            <mask id="mask" x="0" y="0">
+              height="100%"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
               <rect
-                className={styles.mask1}
                 x="0"
                 y="0"
+                className={styles.maskFill}
                 width="100%"
                 height="100.3%"
               />
-              {renderRects}
-            </mask>
-          </svg>
-          <div ref={divWrapper} />
+              <mask id="statement-grid-mask" x="0" y="0">
+                <rect
+                  className={styles.maskWhite}
+                  x="0"
+                  y="0"
+                  width="100%"
+                  height="100.3%"
+                />
+                {renderRects}
+              </mask>
+            </svg>
+            <div ref={divWrapper} />
+          </div>
         </div>
-      </div>
-      {isMobile && (
-        <div className={styles.rightContainerMobile}>
-          <h6 className="h6">
-            Construo landing pages, sites, e-commerces, automações e sistemas
-            web com design limpo e estratégia precisa — para negócios que tratam
-            o digital como vantagem competitiva.
-          </h6>
-        </div>
-      )}
-
-      <div ref={infiniteTextRef} className={styles.infiniteContainer}>
-        <InfiniteText text="Scroll Down" length={5} />
       </div>
     </section>
   );
 };
+
+export default Statement;

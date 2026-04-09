@@ -8,8 +8,6 @@ import {
   SwitchTransition,
 } from "react-transition-group";
 import gsap from "gsap";
-import { useShallow } from "zustand/react/shallow";
-import Lenis from "lenis";
 
 import Footer from "@/components/common/Footer";
 import { useStore } from "@/store";

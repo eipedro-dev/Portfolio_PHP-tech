@@ -4,7 +4,6 @@ import Link from "next/link";
 import clsx from "clsx";
 import { useCallback } from "react";
 import { usePathname } from "next/navigation";
-import { useShallow } from "zustand/react/shallow";
 
 import ButtonLink from "@/components/ui/buttonLink/Index";
 import MenuButton from "@/components/common/navbar/components/MenuButton";

@@ -116,7 +116,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   };
 
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.png" />
         <link
@@ -166,10 +166,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrgJSONLD) }}
         />
       </head>
-      <body>
-        <main>
-          <MainLayout router={{ asPath: "/" }}>{children}</MainLayout>
-        </main>
+      <body suppressHydrationWarning>
+        <MainLayout router={{ asPath: "/" }}>{children}</MainLayout>
       </body>
     </html>
   );

@@ -59,17 +59,17 @@ export function MainLayout({ children, router }: LayoutProps) {
   useScroll(() => ScrollTrigger.update());
 
   useIsomorphicLayoutEffect(() => {
-    // eslint-disable-next-line no-shadow
+    if (!mainRef.current || !mainContainerRef.current) return;
+
+    // Configurando Lenis com wrapper e content para scroll virtual
+    // O <main> é fixo (position: fixed), então precisamos que o Lenis
+    // controle o scroll dentro dele, usando o mainContainer como conteúdo
     const createLenis = new Lenis({
       smoothWheel: true,
       syncTouch: true,
-      // TypeScript/Lenis options podem não aceitar wrapper direto nas propriedades na nova lib
-      // Porém caso suporte usamos Object.assign ou ignoramos.
+      wrapper: mainRef.current,
+      content: mainContainerRef.current,
     } as any);
-
-    if (mainRef.current && mainContainerRef.current) {
-      // Fallback de binds
-    }
 
     setLenis(createLenis);
     createLenis.stop();

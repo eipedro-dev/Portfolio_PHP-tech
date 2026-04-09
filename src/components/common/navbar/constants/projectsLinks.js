@@ -1,15 +1,15 @@
 const projectsLinks = [
   {
-    title: 'Project 1',
-    href: '/projects/project1',
+    title: 'Barbearia Primos Barber',
+    href: '/projects/barbearia-primos-barber',
   },
   {
-    title: 'Project 2',
-    href: '/projects/project2',
+    title: 'Marcos Paulo',
+    href: '/projects/marcos-paulo',
   },
   {
-    title: 'Project 3',
-    href: '/projects/project3',
+    title: 'Donna Coffee',
+    href: '/projects/donna-coffee',
   },
 ];
 export default projectsLinks;

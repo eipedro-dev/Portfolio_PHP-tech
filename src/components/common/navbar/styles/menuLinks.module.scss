@@ -87,7 +87,7 @@
     counter-reset: menulist2 4;
     &::before {
       font-weight: 700;
-      content: 'Selected Projects';
+      content: 'Projetos';
 
       margin-bottom: var(--layout-columns-gap);
     }
@@ -101,7 +101,7 @@
   &:nth-child(4) {
     &::before {
       font-weight: 700;
-      content: 'Follow Us';
+      content: 'Redes Sociais';
       margin-bottom: var(--layout-columns-gap);
     }
   }

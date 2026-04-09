@@ -1,0 +1,162 @@
+@use '@/styles/functions' as *;
+
+// ─── Tokens ────────────────────────────────────────────────────────────────────
+$dark-bg: #0a0a0a;
+$text-primary: #f0f4f1;
+$text-muted: rgba(240, 244, 241, 0.5);
+$divider: rgba(240, 244, 241, 0.15);
+
+// ─── Root ──────────────────────────────────────────────────────────────────────
+.root {
+  background-color: $dark-bg;
+  color: $text-primary;
+
+  // Override the global section box-shadow so the dark bg shows fully
+  box-shadow: none !important;
+  padding-top: calc(var(--layout-columns-gap) * 5);
+  padding-bottom: calc(var(--layout-columns-gap) * 5);
+
+  @include mobile {
+    padding-top: calc(var(--layout-columns-gap) * 3);
+    padding-bottom: calc(var(--layout-columns-gap) * 3);
+  }
+}
+
+// ─── Two-column wrapper ────────────────────────────────────────────────────────
+.inner {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: var(--layout-columns-gap);
+
+  @include mobile {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: calc(var(--layout-columns-gap) * 2);
+  }
+}
+
+// ─── Left Column ──────────────────────────────────────────────────────────────
+.left {
+  grid-column: 1 / 8;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--layout-columns-gap) * 1.5);
+  padding-right: calc(var(--layout-columns-gap) * 1);
+
+  @include mobile {
+    grid-column: 1 / 7;
+    padding-right: 0;
+    gap: var(--layout-columns-gap);
+  }
+}
+
+.sectionLabel {
+  color: $text-muted;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 450;
+}
+
+.heading {
+  color: $text-primary;
+  // override global section box-shadow colour bleed on text
+  background-color: transparent;
+}
+
+.body {
+  color: rgba(240, 244, 241, 0.72);
+  font-weight: 450;
+  max-width: desktop-vw(460px);
+  line-height: 165%;
+
+  @include mobile {
+    max-width: 100%;
+  }
+}
+
+// ─── Right Column ─────────────────────────────────────────────────────────────
+.right {
+  grid-column: 9 / 17;
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    grid-column: 1 / 7;
+  }
+}
+
+// ─── Item ─────────────────────────────────────────────────────────────────────
+.item {
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(desktop-vw(20px));
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.55s ease-out;
+  transition-delay: calc(80ms * var(--item-index, 0));
+}
+
+.itemVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.itemDivider {
+  width: 100%;
+  height: 1px;
+  background-color: $divider;
+}
+
+.itemInner {
+  display: flex;
+  align-items: flex-start;
+  gap: calc(var(--layout-columns-gap) * 1.5);
+  padding: calc(var(--layout-columns-gap) * 1.4) 0;
+
+  @include mobile {
+    gap: var(--layout-columns-gap);
+    padding: calc(var(--layout-columns-gap) * 1.2) 0;
+  }
+}
+
+.itemNumber {
+  color: $text-muted;
+  font-weight: 450;
+  min-width: desktop-vw(28px);
+  padding-top: desktop-vw(3px);
+  flex-shrink: 0;
+
+  @include mobile {
+    min-width: mobile-vw(24px);
+    padding-top: mobile-vw(2px);
+  }
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--layout-columns-gap) * 0.6);
+  flex: 1;
+}
+
+.itemTitle {
+  color: $text-primary;
+  font-weight: 650;
+}
+
+.itemDesc {
+  color: rgba(240, 244, 241, 0.65);
+  font-weight: 450;
+  line-height: 160%;
+  max-width: desktop-vw(440px);
+
+  @include mobile {
+    max-width: 100%;
+  }
+}
+
+// ─── Final bottom divider ─────────────────────────────────────────────────────
+.lastDivider {
+  width: 100%;
+  height: 1px;
+  background-color: $divider;
+}

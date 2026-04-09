@@ -6,7 +6,6 @@ import clsx from "clsx";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { useRef } from "react";
-import { useShallow } from "zustand/react/shallow";
 import { useWindowSize } from "@darkroom.engineering/hamo";
 
 import AppearTitle from "@/components/ui/appearTitle/Index";
